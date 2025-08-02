@@ -14,5 +14,72 @@
     "downloads": "<b>Downloads</b>: The core system for users to access and manage downloads. <b>Note</b>: Setup in the Admin Panel must be completed first.",
     "cognitahz": "<b>Cognitahz</b>: A proprietary platform for users to consume their downloaded content, combining the best features from various platforms.",
     "backups": "<b>Backups</b>: Create backup tasks to different services you own or fetch files to your local machine."
+  },
+  "documentation": {
+    "title": "Documentation",
+    "subtitle": "Comprehensive guide to using Katomart",
+    "home": "Home",
+    "breadcrumb": {
+      "documentation": "Documentation",
+      "gettingStarted": "Getting Started"
+    },
+    "sections": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "description": "Learn the basics of Katomart and get up and running quickly",
+        "content": {
+          "overview": {
+            "title": "Overview",
+            "description": "Katomart is a comprehensive platform that combines administration, content scraping, intelligent processing, and backup capabilities in one unified system."
+          },
+          "quickStart": {
+            "title": "Quick Start Guide",
+            "step1": "Access the Admin Panel to configure your system settings and user accounts",
+            "step2": "Set up your scrapers to collect content from various sources",
+            "step3": "Use Cognitahz to intelligently process and consume your content",
+            "step4": "Configure backup tasks to secure your data"
+          },
+          "systemRequirements": {
+            "title": "System Requirements",
+            "requirement1": "Modern web browser (Chrome, Firefox, Safari, Edge)",
+            "requirement2": "Stable internet connection",
+            "requirement3": "Administrator access for initial setup"
+          }
+        }
+      },
+      "adminPanel": {
+        "title": "Admin Panel",
+        "description": "Complete guide to system administration",
+        "userManagement": "User Management",
+        "systemSettings": "System Settings",
+        "monitoring": "System Monitoring"
+      },
+      "scrappers": {
+        "title": "Scrappers",
+        "description": "Configure and manage content scrapers",
+        "setup": "Setup Guide",
+        "configuration": "Configuration",
+        "troubleshooting": "Troubleshooting"
+      },
+      "cognitahz": {
+        "title": "Cognitahz",
+        "description": "Intelligent content processing platform",
+        "features": "Features Overview",
+        "usage": "How to Use",
+        "advanced": "Advanced Features"
+      },
+      "backups": {
+        "title": "Backups",
+        "description": "Data backup and recovery solutions",
+        "createBackup": "Creating Backups",
+        "scheduleBackup": "Scheduling Backups",
+        "restore": "Restoring Data"
+      }
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next",
+      "tableOfContents": "Table of Contents"
+    }
   }
 }

@@ -14,5 +14,72 @@
     "downloads": "<b>Descargas</b>: El sistema principal para que los usuarios accedan y gestionen descargas. <b>Nota</b>: La configuración en el Panel de Admin debe completarse primero.",
     "cognitahz": "<b>Cognitahz</b>: Una plataforma propietaria para que los usuarios consuman su contenido descargado, combinando las mejores características de varias plataformas.",
     "backups": "<b>Backups</b>: Crear tareas de respaldo a diferentes servicios que posees o obtener archivos en tu máquina local."
+  },
+  "documentation": {
+    "title": "Documentación",
+    "subtitle": "Guía completa para usar Katomart",
+    "home": "Inicio",
+    "breadcrumb": {
+      "documentation": "Documentación",
+      "gettingStarted": "Comenzar"
+    },
+    "sections": {
+      "gettingStarted": {
+        "title": "Comenzar",
+        "description": "Aprende los conceptos básicos de Katomart y comienza rápidamente",
+        "content": {
+          "overview": {
+            "title": "Resumen General",
+            "description": "Katomart es una plataforma integral que combina administración, extracción de contenido, procesamiento inteligente y capacidades de respaldo en un sistema unificado."
+          },
+          "quickStart": {
+            "title": "Guía de Inicio Rápido",
+            "step1": "Accede al Panel de Admin para configurar tus ajustes del sistema y cuentas de usuario",
+            "step2": "Configura tus extractores para recopilar contenido de varias fuentes",
+            "step3": "Usa Cognitahz para procesar y consumir inteligentemente tu contenido",
+            "step4": "Configura tareas de respaldo para asegurar tus datos"
+          },
+          "systemRequirements": {
+            "title": "Requisitos del Sistema",
+            "requirement1": "Navegador web moderno (Chrome, Firefox, Safari, Edge)",
+            "requirement2": "Conexión a internet estable",
+            "requirement3": "Acceso de administrador para la configuración inicial"
+          }
+        }
+      },
+      "adminPanel": {
+        "title": "Panel de Admin",
+        "description": "Guía completa para la administración del sistema",
+        "userManagement": "Gestión de Usuarios",
+        "systemSettings": "Configuraciones del Sistema",
+        "monitoring": "Monitoreo del Sistema"
+      },
+      "scrappers": {
+        "title": "Extractores",
+        "description": "Configurar y gestionar extractores de contenido",
+        "setup": "Guía de Configuración",
+        "configuration": "Configuración",
+        "troubleshooting": "Solución de Problemas"
+      },
+      "cognitahz": {
+        "title": "Cognitahz",
+        "description": "Plataforma de procesamiento inteligente de contenido",
+        "features": "Resumen de Características",
+        "usage": "Cómo Usar",
+        "advanced": "Características Avanzadas"
+      },
+      "backups": {
+        "title": "Backups",
+        "description": "Soluciones de respaldo y recuperación de datos",
+        "createBackup": "Crear Backups",
+        "scheduleBackup": "Programar Backups",
+        "restore": "Restaurar Datos"
+      }
+    },
+    "navigation": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "tableOfContents": "Tabla de Contenidos"
+    }
   }
 }

@@ -14,5 +14,72 @@
     "downloads": "<b>Downloads</b>: O sistema principal para usuários acessarem e gerenciarem downloads. <b>Nota</b>: A configuração no Painel Admin deve ser concluída primeiro.",
     "cognitahz": "<b>Cognitahz</b>: Uma plataforma proprietária para usuários consumirem seu conteúdo baixado, combinando os melhores recursos de várias plataformas.",
     "backups": "<b>Backups</b>: Criar tarefas de backup para diferentes serviços em nuvem ou buscar arquivos para sua máquina local."
+  },
+  "documentation": {
+    "title": "Documentação",
+    "subtitle": "Guia abrangente para usar o Katomart",
+    "home": "Início",
+    "breadcrumb": {
+      "documentation": "Documentação",
+      "gettingStarted": "Começar"
+    },
+    "sections": {
+      "gettingStarted": {
+        "title": "Começar",
+        "description": "Aprenda o básico do Katomart e comece rapidamente",
+        "content": {
+          "overview": {
+            "title": "Visão Geral",
+            "description": "Katomart é uma plataforma abrangente que combina administração, extração de conteúdo, processamento inteligente e recursos de backup em um sistema unificado."
+          },
+          "quickStart": {
+            "title": "Guia de Início Rápido",
+            "step1": "Acesse o Painel Admin para configurar suas definições do sistema e contas de usuário",
+            "step2": "Configure seus scrappers para coletar conteúdo de várias fontes",
+            "step3": "Use o Cognitahz para processar e consumir inteligentemente seu conteúdo",
+            "step4": "Configure tarefas de backup para proteger seus dados"
+          },
+          "systemRequirements": {
+            "title": "Requisitos do Sistema",
+            "requirement1": "Navegador web moderno (Chrome, Firefox, Safari, Edge)",
+            "requirement2": "Conexão estável com a internet",
+            "requirement3": "Acesso de administrador para configuração inicial"
+          }
+        }
+      },
+      "adminPanel": {
+        "title": "Painel Admin",
+        "description": "Guia completo para administração do sistema",
+        "userManagement": "Gerenciamento de Usuários",
+        "systemSettings": "Configurações do Sistema",
+        "monitoring": "Monitoramento do Sistema"
+      },
+      "scrappers": {
+        "title": "Scrappers",
+        "description": "Configurar e gerenciar coletores de conteúdo",
+        "setup": "Guia de Configuração",
+        "configuration": "Configuração",
+        "troubleshooting": "Solução de Problemas"
+      },
+      "cognitahz": {
+        "title": "Cognitahz",
+        "description": "Plataforma de processamento inteligente de conteúdo",
+        "features": "Visão Geral dos Recursos",
+        "usage": "Como Usar",
+        "advanced": "Recursos Avançados"
+      },
+      "backups": {
+        "title": "Backups",
+        "description": "Soluções de backup e recuperação de dados",
+        "createBackup": "Criar Backups",
+        "scheduleBackup": "Agendar Backups",
+        "restore": "Restaurar Dados"
+      }
+    },
+    "navigation": {
+      "previous": "Anterior",
+      "next": "Próximo",
+      "tableOfContents": "Índice"
+    }
   }
 }

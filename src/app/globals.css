@@ -9,6 +9,7 @@
     --text-primary: #333333;
     --text-secondary: #666666;
     --border: #e0e0e0;
+    --documentation-sidebar-width: 280px;
 }
 
 * {
@@ -36,6 +37,7 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    z-index: 100;
 }
 
 .header-title {
@@ -245,5 +247,620 @@ body {
     .button-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+}
+
+/* Documentation Layout */
+.documentation-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.documentation-container {
+    display: flex;
+    flex: 1;
+    max-width: 100%;
+}
+
+.documentation-sidebar {
+    width: var(--documentation-sidebar-width);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+
+.documentation-content {
+    flex: 1;
+    background: var(--background);
+    min-height: calc(100vh - 80px);
+}
+
+/* Documentation Navigation */
+.documentation-nav {
+    padding: 0 1rem;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.nav-link:hover {
+    background: rgba(239, 83, 80, 0.08);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.nav-link-active {
+    background: var(--primary);
+    color: white;
+}
+
+.nav-link-active:hover {
+    background: var(--primary-dark);
+    color: white;
+}
+
+.nav-link-parent-active {
+    background: rgba(239, 83, 80, 0.1);
+    color: var(--primary);
+}
+
+.nav-icon {
+    font-size: 0.9rem;
+    width: 16px;
+    text-align: center;
+}
+
+.nav-label {
+    flex: 1;
+}
+
+.nav-submenu {
+    list-style: none;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+    padding-left: 2rem;
+}
+
+.nav-item-level-1 .nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-secondary);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    padding: 1rem 2rem 0;
+    background: var(--background);
+}
+
+.breadcrumb-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumb-current {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.breadcrumb-separator {
+    margin: 0 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.breadcrumb-icon {
+    font-size: 0.8rem;
+}
+
+/* Documentation Page */
+.documentation-page {
+    max-width: 100%;
+}
+
+.documentation-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.documentation-hero {
+    padding: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hero-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(239, 83, 80, 0.3);
+}
+
+.documentation-title {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.documentation-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin: 0;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* Documentation Sections */
+.documentation-sections {
+    padding: 3rem 2rem;
+}
+
+.sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.section-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-card:hover::before {
+    transform: scaleX(1);
+}
+
+.section-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.section-content {
+    position: relative;
+}
+
+.section-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+}
+
+.section-arrow {
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.section-card:hover .section-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Quick Links */
+.documentation-quick-links {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+}
+
+.quick-links-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.quick-links-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(239, 83, 80, 0.2);
+}
+
+.quick-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 83, 80, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+/* Documentation Content Body */
+.documentation-content-body {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.content-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+}
+
+.section-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* Quick Start Steps */
+.quick-start-steps {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.step-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 2rem;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.step-icon {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.step-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+}
+
+.step-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.step-link:hover {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+/* Requirements List */
+.requirements-list {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.requirement-item:last-child {
+    border-bottom: none;
+}
+
+.requirement-icon {
+    color: #4caf50;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.requirement-text {
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+/* Next Steps Card */
+.next-steps-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(239, 83, 80, 0.3);
+}
+
+.next-steps-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.next-steps-description {
+    margin: 0 0 2rem 0;
+    opacity: 0.9;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.next-steps-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: var(--primary);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.next-steps-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* Responsive Design for Documentation */
+@media (max-width: 1024px) {
+    .documentation-sidebar {
+        width: 250px;
+    }
+    
+    .documentation-content-body {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .documentation-container {
+        flex-direction: column;
+    }
+    
+    .documentation-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+    }
+    
+    .documentation-hero {
+        padding: 1.5rem;
+    }
+    
+    .documentation-title {
+        font-size: 2rem;
+    }
+    
+    .documentation-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .sections-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+    
+    .documentation-sections {
+        padding: 2rem 1rem;
+    }
+    
+    .step-card {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .step-number {
+        align-self: center;
+    }
+    
+    .quick-links-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        padding: 1rem;
+    }
+    
+    .documentation-content-body {
+        padding: 1rem;
+    }
+    
+    .hero-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .documentation-title {
+        font-size: 1.75rem;
+    }
+    
+    .next-steps-card {
+        padding: 2rem 1.5rem;
     }
 }
