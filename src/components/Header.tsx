@@ -20,7 +20,7 @@ const Header = () => {
       </div>
       <h1 className="header-title">{t('brand')}</h1>
       <div className="header-controls">
-        <Link href={`/${locale}/documentation`}>
+        <Link href={`/${locale}/documentation`} target="_blank">
           <FontAwesomeIcon icon={faQuestionCircle} />
           {t('help')}
         </Link>

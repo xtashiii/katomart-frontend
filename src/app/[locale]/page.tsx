@@ -9,8 +9,6 @@ import { useTranslations } from 'next-intl';
 export default function Home() {
   const t = useTranslations('buttons');
   
-  console.log('Home component rendering...');
-  
   return (
     <div>
       <Header />
