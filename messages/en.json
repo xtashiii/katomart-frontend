@@ -1,0 +1,18 @@
+{
+  "header": {
+    "brand": "Katomart",
+    "help": "Help (Documentation)"
+  },
+  "buttons": {
+    "adminPanel": "Admin Panel",
+    "scrappers": "Scrappers",
+    "cognitahz": "Cognitahz",
+    "backups": "Backups"
+  },
+  "info": {
+    "adminPanel": "<b>Admin Panel</b>: Used to control user accounts, system settings, and monitor the system.",
+    "downloads": "<b>Downloads</b>: The core system for users to access and manage downloads. <b>Note</b>: Setup in the Admin Panel must be completed first.",
+    "cognitahz": "<b>Cognitahz</b>: A proprietary platform for users to consume their downloaded content, combining the best features from various platforms.",
+    "backups": "<b>Backups</b>: Create backup tasks to different services you own or fetch files to your local machine."
+  }
+}
