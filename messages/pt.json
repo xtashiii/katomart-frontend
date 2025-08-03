@@ -9,6 +9,16 @@
     "cognitahz": "Cognitahz",
     "backups": "Backups"
   },
+  "auth": {
+    "loginRequired": "Autenticação Necessária",
+    "loginMessage": "Por favor, insira suas credenciais para acessar esta seção",
+    "username": "Usuário",
+    "password": "Senha",
+    "login": "Entrar",
+    "cancel": "Cancelar",
+    "loginError": "Credenciais inválidas. Tente novamente.",
+    "networkError": "Erro de rede. Tente novamente mais tarde."
+  },
   "info": {
     "adminPanel": "<b>Painel Admin</b>: Usado para controlar contas de usuário, configurações do sistema e monitorar o sistema.",
     "downloads": "<b>Downloads</b>: O sistema principal para usuários acessarem e gerenciarem downloads. <b>Nota</b>: A configuração no Painel Admin deve ser concluída primeiro.",

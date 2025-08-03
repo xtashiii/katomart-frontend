@@ -9,6 +9,16 @@
     "cognitahz": "Cognitahz",
     "backups": "Backups"
   },
+  "auth": {
+    "loginRequired": "Authentication Required",
+    "loginMessage": "Please enter your credentials to access this section",
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "cancel": "Cancel",
+    "loginError": "Invalid credentials. Please try again.",
+    "networkError": "Network error. Please try again later."
+  },
   "info": {
     "adminPanel": "<b>Admin Panel</b>: Used to control user accounts, system settings, and monitor the system.",
     "downloads": "<b>Downloads</b>: The core system for users to access and manage downloads. <b>Note</b>: Setup in the Admin Panel must be completed first.",

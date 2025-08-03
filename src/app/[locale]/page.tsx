@@ -15,16 +15,16 @@ export default function Home() {
       <main className="main-content">
         <div className="content-wrapper">
             <div className="button-grid">
-                <AppButton icon={faCog} href="/admin">
+                <AppButton icon={faCog} href="/admin" requiresAuth={true}>
                   {t('adminPanel')}
                 </AppButton>
-                <AppButton icon={faDownload} href="/scrappers">
+                <AppButton icon={faDownload} href="/scrappers" requiresAuth={true}>
                   {t('scrappers')}
                 </AppButton>
-                <AppButton icon={faBrain} href="/cognitahz">
+                <AppButton icon={faBrain} href="/cognitahz" requiresAuth={true}>
                   {t('cognitahz')}
                 </AppButton>
-                <AppButton icon={faSave} href="/backups">
+                <AppButton icon={faSave} href="/backups" requiresAuth={true}>
                   {t('backups')}
                 </AppButton>
             </div>
