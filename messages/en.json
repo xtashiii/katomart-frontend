@@ -91,5 +91,53 @@
       "next": "Next",
       "tableOfContents": "Table of Contents"
     }
+  },
+  "cognitahz": {
+    "title": "Cognitahz",
+    "subtitle": "Your Personal Learning Platform",
+    "welcome": "Welcome to your learning dashboard",
+    "courses": {
+      "title": "My Courses",
+      "empty": "No courses found",
+      "importUpload": "Import or Upload Course",
+      "search": "Search courses...",
+      "searchPlaceholder": "Search by course, module, lesson, or file name...",
+      "filters": "Filters",
+      "category": "Category",
+      "platform": "Platform",
+      "duration": "Duration (Hours)",
+      "allCategories": "All Categories",
+      "allPlatforms": "All Platforms",
+      "allDurations": "All Durations",
+      "duration0to20": "Short (0-20 hours)",
+      "duration20to40": "Medium (20-40 hours)",
+      "duration40plus": "Long (40+ hours)",
+      "resultsCount": "{count} courses found",
+      "loading": "Loading courses...",
+      "error": "Failed to load courses"
+    },
+    "categories": {
+      "programming": "Programming",
+      "design": "Design",
+      "business": "Business",
+      "language": "Language",
+      "science": "Science",
+      "math": "Mathematics",
+      "history": "History",
+      "art": "Art"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {current} of {total}",
+      "showing": "Showing {start}-{end} of {total} courses"
+    },
+    "courseCard": {
+      "lessons": "{count} lessons",
+      "progress": "{percent}% complete",
+      "lastAccessed": "Last accessed: {date}",
+      "duration": "{duration} hours",
+      "difficulty": "Difficulty: {level}"
+    }
   }
 }

@@ -91,5 +91,53 @@
       "next": "Próximo",
       "tableOfContents": "Índice"
     }
+  },
+  "cognitahz": {
+    "title": "Cognitahz",
+    "subtitle": "Sua Plataforma de Aprendizado Pessoal",
+    "welcome": "Bem-vindo ao seu painel de aprendizado",
+    "courses": {
+      "title": "Meus Cursos",
+      "empty": "Nenhum curso encontrado",
+      "importUpload": "Importar ou Enviar Curso",
+      "search": "Pesquisar cursos...",
+      "searchPlaceholder": "Pesquisar por curso, módulo, lição ou nome de arquivo...",
+      "filters": "Filtros",
+      "category": "Categoria",
+      "platform": "Plataforma",
+      "duration": "Duração (Horas)",
+      "allCategories": "Todas as Categorias",
+      "allPlatforms": "Todas as Plataformas",
+      "allDurations": "Todas as Durações",
+      "duration0to20": "Curto (0-20 horas)",
+      "duration20to40": "Médio (20-40 horas)",
+      "duration40plus": "Longo (40+ horas)",
+      "resultsCount": "{count} cursos encontrados",
+      "loading": "Carregando cursos...",
+      "error": "Falha ao carregar cursos"
+    },
+    "categories": {
+      "programming": "Programação",
+      "design": "Design",
+      "business": "Negócios",
+      "language": "Idioma",
+      "science": "Ciência",
+      "math": "Matemática",
+      "history": "História",
+      "art": "Arte"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Próximo",
+      "page": "Página {current} de {total}",
+      "showing": "Mostrando {start}-{end} de {total} cursos"
+    },
+    "courseCard": {
+      "lessons": "{count} lições",
+      "progress": "{percent}% completo",
+      "lastAccessed": "Último acesso: {date}",
+      "duration": "{duration} horas",
+      "difficulty": "Dificuldade: {level}"
+    }
   }
 }

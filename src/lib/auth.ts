@@ -109,6 +109,7 @@ export const isAuthenticated = (): boolean => {
 export const clearTokens = (): void => {
   localStorage.removeItem('auth_token');
   localStorage.removeItem('refresh_token');
+  localStorage.removeItem('current_user');
 };
 
 // Mock API responses for testing
@@ -127,15 +128,20 @@ if (process.env.NODE_ENV === 'development') {
     );
     
     if (user) {
+      const userData = {
+        id: '1',
+        username: user.username,
+        email: `${user.username}@example.com`
+      };
+      
+      // Store the user data for later retrieval
+      localStorage.setItem('current_user', JSON.stringify(userData));
+      
       return {
         data: {
           token: 'mock-jwt-token-' + Date.now(),
           refreshToken: 'mock-refresh-token-' + Date.now(),
-          user: {
-            id: '1',
-            username: user.username,
-            email: `${user.username}@example.com`
-          }
+          user: userData
         }
       };
     } else {
@@ -160,6 +166,13 @@ if (process.env.NODE_ENV === 'development') {
   const mockUser = () => {
     const token = localStorage.getItem('auth_token');
     if (token && token.startsWith('mock-jwt-token-')) {
+      // Extract the original username from localStorage or from a stored user object
+      const storedUser = localStorage.getItem('current_user');
+      if (storedUser) {
+        return { data: JSON.parse(storedUser) };
+      }
+      
+      // Fallback to testuser if no stored user found
       return {
         data: {
           id: '1',
