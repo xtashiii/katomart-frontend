@@ -18,12 +18,11 @@ export default function Pagination({
 }: PaginationProps) {
   const getPageNumbers = () => {
     const pages = [];
-    const showPages = 5; // Number of page buttons to show
+    const showPages = 5;
     
     let startPage = Math.max(1, currentPage - Math.floor(showPages / 2));
     let endPage = Math.min(totalPages, startPage + showPages - 1);
     
-    // Adjust start page if we're near the end
     if (endPage - startPage < showPages - 1) {
       startPage = Math.max(1, endPage - showPages + 1);
     }

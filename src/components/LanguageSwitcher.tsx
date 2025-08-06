@@ -46,7 +46,6 @@ const LanguageSwitcher = () => {
     console.log(`Path segments after locale removal:`, segments);
     console.log(`New path: ${newPath}`);
     
-    // Use Next.js router.push instead of window.location.href to maintain state
     router.push(newPath);
   };
 

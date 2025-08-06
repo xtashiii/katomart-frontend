@@ -37,7 +37,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           const currentUser = await getCurrentUser();
           setUser(currentUser);
         } catch (error) {
-          // Token might be invalid, clear it
           console.warn('Auth initialization failed:', error);
           clearTokens();
         }
@@ -50,19 +49,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       initAuth();
     }
 
-    // Listen for logout events
     const handleLogout = () => {
       setUser(null);
     };
 
-    // Listen for storage changes (for cross-tab auth state sync)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'auth_token') {
         if (!e.newValue) {
-          // Token was removed
           setUser(null);
         } else if (!user && e.newValue) {
-          // Token was added, re-initialize auth
           initAuth();
         }
       }
@@ -75,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       window.removeEventListener('auth:logout', handleLogout);
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [isInitialized, user]); // Add isInitialized and user as dependencies
+  }, [isInitialized, user]);
 
   const login = (userData: User) => {
     setUser(userData);

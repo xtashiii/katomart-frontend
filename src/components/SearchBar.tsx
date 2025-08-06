@@ -26,7 +26,7 @@ export default function SearchBar({ placeholder, onSearch, value }: SearchBarPro
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setLocalValue(newValue);
-    // Debounced search - you might want to add debouncing here
+    // Debounced search
     onSearch(newValue);
   };
 

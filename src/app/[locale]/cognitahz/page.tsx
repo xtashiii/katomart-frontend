@@ -22,8 +22,14 @@ export default function CognitahzPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [selectedDuration, setSelectedDuration] = useState('all');
+  const [selectedFileSize, setSelectedFileSize] = useState('all');
+  const [selectedDownloadStatus, setSelectedDownloadStatus] = useState('all');
+  const [selectedLastUpdated, setSelectedLastUpdated] = useState('all');
+  const [selectedLanguage, setSelectedLanguage] = useState('all');
+  const [selectedProgress, setSelectedProgress] = useState('all');
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [availablePlatforms, setAvailablePlatforms] = useState<string[]>([]);
+  const [availableLanguages, setAvailableLanguages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   
   const { isLoggedIn, logout, isLoading: authLoading } = useAuth();
@@ -34,13 +40,11 @@ export default function CognitahzPage() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      // Only redirect if we're sure the user is not logged in and not loading
       if (!authLoading && !isLoggedIn) {
         router.push('/');
         return;
       }
 
-      // Only proceed with auth verification if we have a user
       if (isLoggedIn && !authLoading) {
         const isValid = await verifyAuth();
         if (!isValid) {
@@ -50,7 +54,6 @@ export default function CognitahzPage() {
         }
 
         setIsLoading(false);
-        // Load filter options and initial courses
         await loadFilterOptions();
         loadCourses();
       } else if (!authLoading) {
@@ -59,13 +62,14 @@ export default function CognitahzPage() {
     };
 
     checkAuth();
-  }, [isLoggedIn, authLoading, logout, router]); // Add authLoading to dependencies
+  }, [isLoggedIn, authLoading, logout, router]);
 
   const loadFilterOptions = async () => {
     try {
       const filterOptions = await CoursesAPI.getFilterOptions();
       setAvailableCategories(filterOptions.categories);
       setAvailablePlatforms(filterOptions.platforms);
+      setAvailableLanguages(filterOptions.languages);
     } catch (err) {
       console.error('Failed to load filter options:', err);
     }
@@ -123,21 +127,48 @@ export default function CognitahzPage() {
     loadCourses(1, searchQuery, selectedCategory, selectedPlatform, duration);
   };
 
+  const handleFileSizeChange = (fileSize: string) => {
+    setSelectedFileSize(fileSize);
+    setCurrentPage(1);
+    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+  };
+
+  const handleDownloadStatusChange = (status: string) => {
+    setSelectedDownloadStatus(status);
+    setCurrentPage(1);
+    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+  };
+
+  const handleLastUpdatedChange = (lastUpdated: string) => {
+    setSelectedLastUpdated(lastUpdated);
+    setCurrentPage(1);
+    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+  };
+
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    setCurrentPage(1);
+    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+  };
+
+  const handleProgressChange = (progress: string) => {
+    setSelectedProgress(progress);
+    setCurrentPage(1);
+    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     loadCourses(page, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
-    // Scroll to top of courses section
     document.querySelector('.courses-section')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleCourseClick = (course: Course) => {
-    // TODO: Navigate to course detail page
-    console.log('Clicked course:', course.id);
+    router.push(`/cognitahz/${course.id}`);
   };
 
   const handleImportCourse = () => {
-    // TODO: Open import/upload modal
-    console.log('Import course clicked');
+    router.push('/cognitahz/import');
   };
 
   if (isLoading || authLoading) {
@@ -193,11 +224,22 @@ export default function CognitahzPage() {
                 selectedCategory={selectedCategory}
                 selectedPlatform={selectedPlatform}
                 selectedDuration={selectedDuration}
+                selectedFileSize={selectedFileSize}
+                selectedDownloadStatus={selectedDownloadStatus}
+                selectedLastUpdated={selectedLastUpdated}
+                selectedLanguage={selectedLanguage}
+                selectedProgress={selectedProgress}
                 availableCategories={availableCategories}
                 availablePlatforms={availablePlatforms}
+                availableLanguages={availableLanguages}
                 onCategoryChange={handleCategoryChange}
                 onPlatformChange={handlePlatformChange}
                 onDurationChange={handleDurationChange}
+                onFileSizeChange={handleFileSizeChange}
+                onDownloadStatusChange={handleDownloadStatusChange}
+                onLastUpdatedChange={handleLastUpdatedChange}
+                onLanguageChange={handleLanguageChange}
+                onProgressChange={handleProgressChange}
               />
             </div>
           </div>

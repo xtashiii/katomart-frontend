@@ -1,0 +1,363 @@
+/* ========================================
+   CUSTOM THEME FOR VIDEO.JS
+   ======================================== */
+
+/* Theme Colors */
+:root {
+  --vjs-theme-primary: #ff6b6b; /* Light Red/Coral */
+  --vjs-theme-accent: #ff8e8e;  /* Lighter Pinkish Accent */
+  --vjs-theme-text: #ffffff;
+  --vjs-theme-background-alpha: rgba(28, 28, 28, 0.7);
+  --vjs-theme-background-solid: #1c1c1c;
+}
+
+/* Video Container - Creates aspect ratio and bounds */
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Modern CSS aspect ratio */
+  overflow: hidden;
+  background: #000;
+  border-radius: 12px; /* Rounded corners for the container */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Video.js Player - Fills the container */
+.video-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent; /* Transparent background to see container */
+  border-radius: 12px; /* Match container's rounded corners */
+}
+
+/* Video Element - Proper scaling */
+.video-js .vjs-tech {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  border-radius: 12px; /* Match container's rounded corners */
+}
+
+/* Remove default Video.js styling conflicts */
+.video-js.vjs-fluid {
+  padding-top: 0 !important;
+}
+
+/* Big Play Button - Prettier Design */
+.video-js .vjs-big-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--vjs-theme-primary);
+  border: 3px solid var(--vjs-theme-text);
+  font-size: 24px;
+  color: var(--vjs-theme-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.video-js .vjs-big-play-button:hover {
+  background: var(--vjs-theme-accent);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.video-js .vjs-big-play-button .vjs-icon-placeholder::before {
+  font-size: 48px; /* Larger icon */
+  line-height: 74px; /* Center icon vertically */
+}
+
+/* Control Bar */
+.video-js .vjs-control-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Increased height for a modern feel */
+  background: var(--vjs-theme-background-alpha);
+  backdrop-filter: blur(8px); /* Frosted glass effect */
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.video-js:hover .vjs-control-bar,
+.video-js.vjs-user-active .vjs-control-bar {
+  opacity: 1;
+}
+
+/* Control Buttons */
+.video-js .vjs-button > .vjs-icon-placeholder::before {
+  color: var(--vjs-theme-text);
+  font-size: 22px; /* Larger icons on control bar */
+  line-height: 2.7; /* Adjusted for vertical centering in 60px bar */
+}
+
+.video-js .vjs-button:hover > .vjs-icon-placeholder::before {
+  color: var(--vjs-theme-primary);
+}
+
+/* Playback Rate Button */
+.video-js .vjs-playback-rate {
+  width: 4.5em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-js .vjs-playback-rate .vjs-playback-rate-value {
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1; /* Use flex alignment */
+  text-align: center;
+  color: var(--vjs-theme-text);
+  pointer-events: none;
+}
+
+.video-js .vjs-playback-rate:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+/* Hide the icon placeholder to prevent overlays */
+.video-js .vjs-playback-rate > .vjs-icon-placeholder {
+  display: none;
+}
+
+/* Progress Bar */
+.video-js .vjs-progress-control {
+  flex: 1;
+  margin: 0 10px;
+  height: 8px; /* Thicker progress bar */
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: height 0.2s ease;
+}
+
+.video-js .vjs-progress-control:hover {
+  height: 10px; /* Slightly thicker on hover */
+}
+
+/* Progress Bar - Play Progress */
+.video-js .vjs-play-progress {
+  background-color: var(--vjs-theme-primary);
+  border-radius: 4px;
+}
+
+/* Progress Bar - Load Progress */
+.video-js .vjs-load-progress {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+/* Progress Bar - Seek Handle */
+.video-js .vjs-progress-control .vjs-mouse-display,
+.video-js .vjs-progress-control .vjs-play-progress:after {
+  background-color: var(--vjs-theme-accent);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--vjs-theme-text);
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Time Display */
+.video-js .vjs-time-control {
+  color: var(--vjs-theme-text);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 8px;
+  min-width: auto;
+}
+
+/* Volume Control */
+.video-js .vjs-volume-panel {
+  margin-left: 10px;
+}
+
+.video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-horizontal {
+  width: 80px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.video-js .vjs-volume-bar {
+  background-color: var(--vjs-theme-primary);
+  border-radius: 4px;
+}
+
+.video-js .vjs-volume-level:after {
+  background-color: var(--vjs-theme-accent);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--vjs-theme-text);
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Menus (e.g., playback rates) */
+.video-js .vjs-menu-button-popup .vjs-menu {
+  background-color: var(--vjs-theme-background-solid);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.video-js .vjs-menu-item {
+  color: var(--vjs-theme-text);
+  transition: background-color 0.2s ease;
+}
+
+.video-js .vjs-menu-item:hover {
+  background-color: var(--vjs-theme-primary);
+  color: var(--vjs-theme-text);
+}
+
+/* Marker styles */
+.vjs-marker {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background-color: var(--vjs-theme-accent);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.vjs-marker:hover {
+  transform: scaleY(1.5);
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { 
+    transform: translateY(20px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+/* Notes Section Styles */
+.notes-section {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allow container to grow and fill space */
+  position: relative;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.add-timestamp-button {
+  background-color: var(--vjs-theme-primary);
+  color: var(--vjs-theme-text);
+  border: none;
+  border-radius: 5px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+  margin-bottom: 1rem; /* Add space below the button */
+}
+
+.add-timestamp-button:hover {
+  background-color: var(--vjs-theme-accent);
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 1rem;
+}
+
+.notes-textarea {
+  flex-grow: 1; /* Make textarea fill available space */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.notes-display {
+  flex-grow: 1;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  white-space: pre-wrap; /* Preserve whitespace and newlines */
+  word-wrap: break-word;
+  cursor: text;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  min-height: 200px; /* Ensure it has a minimum height */
+}
+
+.timestamp-link {
+  background-color: var(--vjs-theme-accent);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  margin: 0 2px;
+  transition: background-color 0.2s ease;
+}
+
+.timestamp-link:hover {
+  background-color: var(--vjs-theme-primary);
+}
+
+.save-notes-button {
+  margin-top: 1rem;
+  /* Existing styles for save button */
+}

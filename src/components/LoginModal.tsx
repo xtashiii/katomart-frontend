@@ -32,7 +32,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
     try {
       const tokens = await apiLogin(credentials);
       
-      // For development/mock mode, create user data from credentials
       const userData = {
         id: '1',
         username: credentials.username,

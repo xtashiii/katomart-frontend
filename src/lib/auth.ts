@@ -18,10 +18,8 @@ export interface User {
   email?: string;
 }
 
-// Configure axios defaults
 axios.defaults.baseURL = API_BASE_URL;
 
-// Add token to requests if available
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('auth_token');
   if (token) {
@@ -134,7 +132,6 @@ if (process.env.NODE_ENV === 'development') {
         email: `${user.username}@example.com`
       };
       
-      // Store the user data for later retrieval
       localStorage.setItem('current_user', JSON.stringify(userData));
       
       return {
