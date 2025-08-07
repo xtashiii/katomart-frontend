@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useTranslations } from 'next-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faArrowLeft, 
-  faPlay, 
-  faCheck, 
-  faStar, 
-  faBook, 
-  faChevronDown, 
+import { useTranslations } from "next-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faPlay,
+  faCheck,
+  faStar,
+  faBook,
+  faChevronDown,
   faChevronRight,
   faVideo,
   faPaperclip,
   faDownload,
   faCheckCircle,
-  faCircle
-} from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import { DetailedCourse, Lesson, Module } from '@/lib/coursesAPI';
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { DetailedCourse, Lesson, Module } from "@/lib/coursesAPI";
 
 interface CourseTreeSidebarProps {
   course: DetailedCourse;
@@ -29,18 +29,18 @@ interface CourseTreeSidebarProps {
   className?: string;
 }
 
-export default function CourseTreeSidebar({ 
-  course, 
-  selectedLesson, 
-  onLessonSelect, 
+export default function CourseTreeSidebar({
+  course,
+  selectedLesson,
+  onLessonSelect,
   onBackToCourses,
   onToggleCompletion,
   onDownloadNotes,
-  className = ''
+  className = "",
 }: CourseTreeSidebarProps) {
-  const t = useTranslations('course');
+  const t = useTranslations("course");
   const [expandedModules, setExpandedModules] = useState<Set<string>>(
-    new Set(course.modules.map(m => m.id)) // Expand all modules by default
+    new Set(course.modules.map((m) => m.id)) // Expand all modules by default
   );
   const [ratings, setRatings] = useState<{ [lessonId: string]: number }>({});
 
@@ -63,21 +63,26 @@ export default function CourseTreeSidebar({
       <FontAwesomeIcon
         key={i}
         icon={faStar}
-        className={`star ${i < rating ? 'filled' : 'empty'}`}
+        className={`star ${i < rating ? "filled" : "empty"}`}
         onClick={() => handleRatingChange(lessonId, i + 1)}
       />
     ));
   };
 
   const calculateModuleRating = (module: Module) => {
-    const ratedLessons = module.lessons.filter(lesson => lesson.userRating && lesson.userRating > 0);
+    const ratedLessons = module.lessons.filter(
+      (lesson) => lesson.userRating && lesson.userRating > 0
+    );
     if (ratedLessons.length === 0) return 0;
-    const totalRating = ratedLessons.reduce((sum, lesson) => sum + (lesson.userRating || 0), 0);
+    const totalRating = ratedLessons.reduce(
+      (sum, lesson) => sum + (lesson.userRating || 0),
+      0
+    );
     return Math.round(totalRating / ratedLessons.length);
   };
 
   const isModuleCompleted = (module: Module) => {
-    return module.lessons.every(lesson => lesson.completed);
+    return module.lessons.every((lesson) => lesson.completed);
   };
 
   const handleDownloadNotes = (moduleId: string) => {
@@ -100,13 +105,13 @@ export default function CourseTreeSidebar({
   return (
     <div className={`course-tree-sidebar ${className}`}>
       <div className="sidebar-header">
-        <button 
+        <button
           onClick={onBackToCourses}
           className="back-button"
-          aria-label={t('backToCourses')}
+          aria-label={t("backToCourses")}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
-          <span>{t('backToCourses')}</span>
+          <span>{t("backToCourses")}</span>
         </button>
       </div>
 
@@ -120,27 +125,29 @@ export default function CourseTreeSidebar({
             </div>
           )}
         </div>
-        
+
         <h1 className="course-title">{course.title}</h1>
-        
+
         <div className="course-meta">
           <div className="meta-item">
-            <strong>{t('instructor')}:</strong> {course.instructor}
+            <strong>{t("instructor")}:</strong> {course.instructor}
           </div>
           <div className="meta-item">
-            <strong>{t('enrolled')}:</strong> {formatDate(course.enrollmentDate)}
+            <strong>{t("enrolled")}:</strong>{" "}
+            {formatDate(course.enrollmentDate)}
           </div>
           <div className="meta-item">
-            <strong>{t('lastAccessed')}:</strong> {formatDate(course.lastAccessed)}
+            <strong>{t("lastAccessed")}:</strong>{" "}
+            {formatDate(course.lastAccessed)}
           </div>
         </div>
 
         <div className="progress-section">
           <div className="progress-label">
-            <strong>{t('overallProgress')}</strong>
+            <strong>{t("overallProgress")}</strong>
           </div>
           <div className="progress-bar">
-            <div 
+            <div
               className="progress-fill"
               style={{ width: `${course.overallProgress}%` }}
             ></div>
@@ -150,8 +157,8 @@ export default function CourseTreeSidebar({
       </div>
 
       <div className="modules-section">
-        <h2 className="section-title">{t('modules')}</h2>
-        
+        <h2 className="section-title">{t("modules")}</h2>
+
         <div className="modules-list">
           {course.modules
             .sort((a, b) => a.order - b.order)
@@ -160,40 +167,86 @@ export default function CourseTreeSidebar({
               const moduleCompleted = isModuleCompleted(module);
               return (
                 <div key={module.id} className="module-item">
-                  <div 
+                  <div
                     className="module-header"
                     onClick={() => toggleModule(module.id)}
                   >
                     <div className="module-toggle">
-                      <FontAwesomeIcon 
-                        icon={expandedModules.has(module.id) ? faChevronDown : faChevronRight}
+                      <FontAwesomeIcon
+                        icon={
+                          expandedModules.has(module.id)
+                            ? faChevronDown
+                            : faChevronRight
+                        }
                       />
                     </div>
-                    
+
                     <div className="module-info">
                       <h3 className="module-name">
-                        <span className="module-order">{moduleIndex + 1}.</span> {module.name}
+                        <span className="module-order">{moduleIndex + 1}.</span>{" "}
+                        {module.name}
                       </h3>
-                      <div className="module-meta">
-                        <div className="module-progress">
-                          <div className="mini-progress-bar">
-                            <div 
-                              className="mini-progress-fill"
-                              style={{ width: `${module.progress}%` }}
-                            ></div>
-                          </div>
-                          <span>{module.progress}%</span>
-                        </div>
-                        {moduleCompleted && (
-                          <span className="module-completed">
+                      {moduleCompleted ? (
+                        <div>
+                          <span
+                            style={{
+                              display: "flex",
+                              fontSize: "2px",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            className="module-completed"
+                          >
                             <FontAwesomeIcon icon={faCheck} />
-                            {t('moduleCompleted')}
+                            {t("moduleCompleted")}
                           </span>
-                        )}
-                      </div>
-                      {moduleRating > 0 && (
-                        <div className="module-rating">
-                          {renderStars(moduleRating, module.id)}
+                          <div>
+                            {moduleRating > 0 && (
+                              <div className="module-rating">
+                                {renderStars(moduleRating, module.id)}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="module-meta">
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            className="module-progress"
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div className="mini-progress-bar">
+                                <div
+                                  className="mini-progress-fill"
+                                  style={{ width: `${module.progress}%` }}
+                                ></div>
+                              </div>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "end",
+                                }}
+                              >
+                                {module.progress}%
+                              </span>
+                            </div>
+                            {moduleRating > 0 && (
+                              <div className="module-rating">
+                                {renderStars(moduleRating, module.id)}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -217,31 +270,44 @@ export default function CourseTreeSidebar({
                       {module.lessons
                         .sort((a, b) => a.order - b.order)
                         .map((lesson, lessonIndex) => (
-                          <div 
+                          <div
                             key={lesson.id}
-                            className={`lesson-item ${selectedLesson?.id === lesson.id ? 'selected' : ''}`}
+                            className={`lesson-item ${
+                              selectedLesson?.id === lesson.id ? "selected" : ""
+                            }`}
                             onClick={() => onLessonSelect(lesson)}
                           >
                             <div className="lesson-order">
                               {moduleIndex + 1}.{lessonIndex + 1}
                             </div>
-                            
+
                             <div className="lesson-icon">
                               {lesson.completed ? (
-                                <FontAwesomeIcon icon={faCheck} className="completed-icon" />
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  className="completed-icon"
+                                />
                               ) : lesson.hasVideo ? (
-                                <FontAwesomeIcon icon={faVideo} className="video-icon" />
+                                <FontAwesomeIcon
+                                  icon={faVideo}
+                                  className="video-icon"
+                                />
                               ) : (
-                                <FontAwesomeIcon icon={faPlay} className="play-icon" />
+                                <FontAwesomeIcon
+                                  icon={faPlay}
+                                  className="play-icon"
+                                />
                               )}
                             </div>
-                            
+
                             <div className="lesson-info">
                               <div className="lesson-name">{lesson.name}</div>
                               <div className="lesson-meta">
                                 {lesson.duration && (
                                   <span className="lesson-duration">
-                                    {t('duration', { minutes: lesson.duration })}
+                                    {t("duration", {
+                                      minutes: lesson.duration,
+                                    })}
                                   </span>
                                 )}
                                 {lesson.hasAttachments && (
@@ -254,11 +320,23 @@ export default function CourseTreeSidebar({
 
                             <div className="lesson-actions">
                               <button
-                                className={`completion-toggle ${lesson.completed ? 'completed' : 'incomplete'}`}
-                                onClick={(e) => handleToggleCompletion(lesson, e)}
-                                title={lesson.completed ? 'Mark as incomplete' : 'Mark as complete'}
+                                className={`completion-toggle ${
+                                  lesson.completed ? "completed" : "incomplete"
+                                }`}
+                                onClick={(e) =>
+                                  handleToggleCompletion(lesson, e)
+                                }
+                                title={
+                                  lesson.completed
+                                    ? "Mark as incomplete"
+                                    : "Mark as complete"
+                                }
                               >
-                                <FontAwesomeIcon icon={lesson.completed ? faCheckCircle : faCircle} />
+                                <FontAwesomeIcon
+                                  icon={
+                                    lesson.completed ? faCheckCircle : faCircle
+                                  }
+                                />
                               </button>
                             </div>
                           </div>
