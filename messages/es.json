@@ -3,11 +3,31 @@
     "brand": "Katomart",
     "help": "Ayuda (Documentación)"
   },
+  "scrappers": {
+    "title": "Extractores",
+    "platformsTab": "Plataformas",
+    "librariesTab": "Librerías",
+    "coursesTab": "Cursos",
+    "librariesComingSoon": "Contenido de librerías próximamente."
+  },
+  "general": {
+    "loading": "Cargando..."
+  },
+  "platform": {
+    "settings": "Configuración de la plataforma"
+  },
+  "download": {
+    "settings": "Configuración de descarga"
+  },
+  "progress": {
+    "progress": "Progreso de descarga"
+  },
   "buttons": {
     "adminPanel": "Panel de Admin",
     "scrappers": "Extractores",
     "cognitahz": "Cognitahz",
-    "backups": "Backups"
+    "backups": "Backups",
+    "logout": "Salir"
   },
   "auth": {
     "loginRequired": "Autenticación Requerida",

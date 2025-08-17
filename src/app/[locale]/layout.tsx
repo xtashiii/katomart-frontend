@@ -41,14 +41,10 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
   const messages = await getMessages({ locale });
-
   return (
     <html lang={locale}>
-      <body
-        className={`${inter.variable} antialiased font-sans`}
-      >
+      <body className={`${inter.variable} antialiased font-sans`}>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
             {children}

@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { useParams } from 'next/navigation';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -14,10 +13,9 @@ const LanguageSwitcher = () => {
   const router = useRouter();
   const pathname = usePathname();
   const localeFromHook = useLocale();
-  const params = useParams();
 
-  const pathSegments = pathname.split('/').filter(Boolean);
-  const localeFromPath = pathSegments.find(segment => 
+  const pathSegments = pathname.split('/').filter((segment: string) => Boolean(segment));
+  const localeFromPath = pathSegments.find((segment: string) => 
     ['en', 'es', 'pt'].includes(segment)
   ) || 'en';
 
@@ -27,26 +25,14 @@ const LanguageSwitcher = () => {
     if (newLocale === currentLocale) {
       return;
     }
-
-    const segments = pathname.split('/').filter(Boolean);
-    
-    const localeIndex = segments.findIndex(segment => 
-      ['en', 'es', 'pt'].includes(segment)
-    );
-    
-    if (localeIndex !== -1) {
-      segments.splice(localeIndex, 1);
+    const segments = pathname.split('/').filter((segment: string) => Boolean(segment));
+    if (['en', 'es', 'pt'].includes(segments[0])) {
+      segments[0] = newLocale;
+    } else {
+      segments.unshift(newLocale);
     }
-    
-    const pathWithoutLocale = segments.length > 0 ? `/${segments.join('/')}` : '';
-    const newPath = `/${newLocale}${pathWithoutLocale}`;
-    
-    console.log(`Language switch: "${currentLocale}" -> "${newLocale}"`);
-    console.log(`Current path: ${pathname}`);
-    console.log(`Path segments after locale removal:`, segments);
-    console.log(`New path: ${newPath}`);
-    
-    router.push(newPath);
+    const newPath = '/' + segments.join('/');
+    router.replace(newPath);
   };
 
   return (

@@ -112,7 +112,6 @@ export default function CoursePage() {
     
     try {
       await CoursesAPI.updateLessonNotes(course.id, lessonId, notes);
-      // Update local state
       const updatedCourse = { ...course };
       for (const module of updatedCourse.modules) {
         const lesson = module.lessons.find(l => l.id === lessonId);

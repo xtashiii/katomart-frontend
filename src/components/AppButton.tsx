@@ -9,25 +9,36 @@ import { useAuth } from '@/contexts/AuthContext';
 import LoginModal from './LoginModal';
 
 interface AppButtonProps {
-  icon: IconDefinition;
-  href: string;
+  icon?: IconDefinition;
+  href?: string;
   children: React.ReactNode;
   requiresAuth?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
 const AppButton: React.FC<AppButtonProps> = ({ 
   icon, 
   href, 
   children, 
-  requiresAuth = true 
+  requiresAuth = true,
+  onClick,
+  disabled,
 }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
-  const handleClick = async (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(e);
+      return;
+    }
+    
     e.preventDefault();
     
+    if (!href) return;
+
     if (!requiresAuth || href.includes('/documentation')) {
       router.push(href);
       return;
@@ -45,13 +56,19 @@ const AppButton: React.FC<AppButtonProps> = ({
   };
 
   const handleLoginSuccess = () => {
-    router.push(href);
+    if (href) {
+      router.push(href);
+    }
   };
 
   return (
     <>
-      <button onClick={handleClick} className="app-button">
-        <FontAwesomeIcon icon={icon} />
+      <button 
+        onClick={handleClick} 
+        className="app-button"
+        disabled={disabled}
+      >
+        {icon && <FontAwesomeIcon icon={icon} />}
         {children}
       </button>
       

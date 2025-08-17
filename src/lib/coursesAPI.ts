@@ -1,4 +1,3 @@
-// Mock API service for courses
 export interface Course {
   id: string;
   title: string;
@@ -11,11 +10,11 @@ export interface Course {
   duration: number;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   lastAccessed?: string;
-  fileSize?: number; // Size in MB - optional for now
-  downloadStatus?: 'complete' | 'partial' | 'missing'; // optional for now
-  lastUpdated?: string; // ISO date string - optional for now
-  language?: string; // optional for now
-  progressStatus?: 'not-started' | 'in-progress' | 'completed' | 'bookmarked'; // optional for now
+  fileSize?: number;
+  downloadStatus?: 'complete' | 'partial' | 'missing';
+  lastUpdated?: string;
+  language?: string;
+  progressStatus?: 'not-started' | 'in-progress' | 'completed' | 'bookmarked';
 }
 
 export interface Attachment {
@@ -38,7 +37,7 @@ export interface Lesson {
   hasAttachments: boolean;
   attachments: Attachment[];
   notes: string;
-  userRating?: number; // 0-5 rating from user
+  userRating?: number;
 }
 
 export interface Module {
@@ -80,7 +79,7 @@ export interface CoursesParams {
   search?: string;
   category?: string;
   platform?: string;
-  durationRange?: string; // e.g., "0-20", "20-40", "40+"
+  durationRange?: string;
 }
 
 export interface ImportCourseData {
@@ -93,8 +92,8 @@ export interface ImportCourseData {
   estimatedDuration?: number;
   instructor?: string;
   language?: string;
-  sourceUrl?: string; // For URL imports
-  requiresAuth?: boolean; // For cloud storage that requires authentication
+  sourceUrl?: string;
+  requiresAuth?: boolean;
 }
 
 export interface TelegramImportData {
@@ -109,7 +108,6 @@ export interface TelegramImportData {
   filterKeywords?: string[];
 }
 
-// Mock data
 const mockCourses: Course[] = [
   {
     id: '1',
@@ -123,7 +121,7 @@ const mockCourses: Course[] = [
     duration: 25,
     difficulty: 'intermediate',
     lastAccessed: '2025-08-01',
-    fileSize: 1250, // 1.25GB
+  fileSize: 1250,
     downloadStatus: 'complete',
     lastUpdated: '2025-07-28',
     language: 'English',
@@ -140,7 +138,7 @@ const mockCourses: Course[] = [
     duration: 18,
     difficulty: 'beginner',
     lastAccessed: '2025-07-28',
-    fileSize: 450, // 450MB
+  fileSize: 450,
     downloadStatus: 'complete',
     lastUpdated: '2025-07-20',
     language: 'English',
@@ -268,7 +266,6 @@ const mockCourses: Course[] = [
   }
 ];
 
-// Mock detailed course data
 const mockDetailedCourses: { [key: string]: DetailedCourse } = {
   '1': {
     id: '1',
@@ -989,12 +986,11 @@ const mockDetailedCourses: { [key: string]: DetailedCourse } = {
   }
 };
 
-// Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export class CoursesAPI {
   static async getCourses(params: CoursesParams = {}): Promise<CoursesResponse> {
-    await delay(800); // Simulate network delay
+  await delay(800);
 
     const {
       page = 1,
@@ -1005,20 +1001,16 @@ export class CoursesAPI {
       durationRange = 'all'
     } = params;
 
-    // Filter courses
     let filteredCourses = mockCourses;
 
-    // Apply category filter
     if (category && category !== 'all') {
       filteredCourses = filteredCourses.filter(course => course.category === category);
     }
 
-    // Apply platform filter
     if (platform && platform !== 'all') {
       filteredCourses = filteredCourses.filter(course => course.platform === platform);
     }
 
-    // Apply duration range filter
     if (durationRange && durationRange !== 'all') {
       filteredCourses = filteredCourses.filter(course => {
         const duration = course.duration;
@@ -1035,7 +1027,6 @@ export class CoursesAPI {
       });
     }
 
-    // Apply search filter
     if (search) {
       const searchLower = search.toLowerCase();
       filteredCourses = filteredCourses.filter(course =>
@@ -1046,7 +1037,6 @@ export class CoursesAPI {
       );
     }
 
-    // Calculate pagination
     const total = filteredCourses.length;
     const totalPages = Math.ceil(total / limit);
     const startIndex = (page - 1) * limit;
@@ -1095,11 +1085,9 @@ export class CoursesAPI {
         const lesson = module.lessons.find(l => l.id === lessonId);
         if (lesson) {
           lesson.completed = true;
-          // Update module progress
           const completedLessons = module.lessons.filter(l => l.completed).length;
           module.progress = Math.round((completedLessons / module.lessons.length) * 100);
           module.completed = module.progress === 100;
-          // Update overall course progress
           const totalLessons = course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
           const totalCompleted = course.modules.reduce((sum, m) => sum + m.lessons.filter(l => l.completed).length, 0);
           course.overallProgress = Math.round((totalCompleted / totalLessons) * 100);
@@ -1119,7 +1107,6 @@ export class CoursesAPI {
     
     const categories = [...new Set(mockCourses.map(course => course.category))].sort();
     const platforms = [...new Set(mockCourses.map(course => course.platform))].sort();
-    // Mock languages - in real app this could come from course data
     const languages = ['English', 'Spanish', 'French', 'German', 'Portuguese'].sort();
     
     return {
@@ -1152,11 +1139,9 @@ export class CoursesAPI {
         const lesson = module.lessons.find(l => l.id === lessonId);
         if (lesson) {
           lesson.completed = !lesson.completed;
-          // Update module progress
           const completedLessons = module.lessons.filter(l => l.completed).length;
           module.progress = Math.round((completedLessons / module.lessons.length) * 100);
           module.completed = module.progress === 100;
-          // Update overall course progress
           const totalLessons = course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
           const totalCompleted = course.modules.reduce((sum, m) => sum + m.lessons.filter(l => l.completed).length, 0);
           course.overallProgress = Math.round((totalCompleted / totalLessons) * 100);
@@ -1169,21 +1154,16 @@ export class CoursesAPI {
 
   static async downloadModuleNotes(courseId: string, moduleId: string): Promise<string> {
     await delay(500);
-    // In a real implementation, this would generate a PDF and return a download URL
-    // For now, we'll return a mock URL
     return `/api/downloads/notes-${courseId}-${moduleId}.pdf`;
   }
 
-  // Import/Upload methods
   static async importCourseFromUrl(courseData: ImportCourseData): Promise<{ success: boolean; courseId?: string; error?: string }> {
     await delay(1500);
     try {
-      // Mock validation
       if (!courseData.title || !courseData.sourceUrl) {
         return { success: false, error: 'Title and source URL are required' };
       }
 
-      // Check if it's a supported cloud storage URL
       const supportedDomains = ['drive.google.com', 'dropbox.com', 'onedrive.live.com', 'mega.nz', 'terabox.com', '1drv.ms'];
       const url = new URL(courseData.sourceUrl);
       const isCloudStorage = supportedDomains.some(domain => url.hostname.includes(domain));
@@ -1192,10 +1172,8 @@ export class CoursesAPI {
         return { success: false, error: 'Unsupported cloud storage provider. Please use Google Drive, Dropbox, OneDrive, MEGA, Terabox, or similar services.' };
       }
 
-      // Generate new course ID
       const newCourseId = `imported-${Date.now()}`;
       
-      // Detect platform from URL
       let detectedPlatform = 'cloud-storage';
       if (url.hostname.includes('drive.google.com')) detectedPlatform = 'Google Drive';
       else if (url.hostname.includes('dropbox.com')) detectedPlatform = 'Dropbox';
@@ -1203,7 +1181,6 @@ export class CoursesAPI {
       else if (url.hostname.includes('mega.nz')) detectedPlatform = 'MEGA';
       else if (url.hostname.includes('terabox.com')) detectedPlatform = 'Terabox';
       
-      // Add to mock courses (in real app, this would be a backend call)
       const newCourse: Course = {
         id: newCourseId,
         title: courseData.title,
@@ -1227,24 +1204,19 @@ export class CoursesAPI {
   static async uploadCourseFiles(courseData: ImportCourseData, files: FileList): Promise<{ success: boolean; courseId?: string; error?: string }> {
     await delay(2000);
     try {
-      // Mock validation
       if (!courseData.title || files.length === 0) {
         return { success: false, error: 'Title and module files are required' };
       }
 
-      // Validate that all files are ZIP files
       const nonZipFiles = Array.from(files).filter(file => !file.name.toLowerCase().endsWith('.zip'));
       if (nonZipFiles.length > 0) {
         return { success: false, error: 'Only ZIP files are allowed. Each ZIP should contain a complete module.' };
       }
 
-      // Generate new course ID
       const newCourseId = `uploaded-${Date.now()}`;
       
-      // Calculate estimated lessons based on number of modules (assuming average of 5 lessons per module)
       const estimatedLessonsFromModules = files.length * 5;
       
-      // Add to mock courses
       const newCourse: Course = {
         id: newCourseId,
         title: courseData.title,
@@ -1253,10 +1225,10 @@ export class CoursesAPI {
         platform: courseData.platform || 'uploaded',
         progress: 0,
         totalLessons: courseData.estimatedLessons || estimatedLessonsFromModules,
-        duration: courseData.estimatedDuration || (files.length * 90), // Assume 90 min per module
+  duration: courseData.estimatedDuration || (files.length * 90),
         difficulty: courseData.difficulty || 'beginner',
         lastAccessed: new Date().toISOString().split('T')[0],
-        fileSize: Array.from(files).reduce((total, file) => total + file.size, 0) / (1024 * 1024), // Convert to MB
+  fileSize: Array.from(files).reduce((total, file) => total + file.size, 0) / (1024 * 1024),
       };
 
       mockCourses.unshift(newCourse);
@@ -1269,15 +1241,12 @@ export class CoursesAPI {
   static async importFromFolder(courseData: ImportCourseData, folderPath: string, createWeakLink: boolean): Promise<{ success: boolean; courseId?: string; error?: string }> {
     await delay(1000);
     try {
-      // Mock validation
       if (!courseData.title || !folderPath) {
         return { success: false, error: 'Title and folder path are required' };
       }
 
-      // Generate new course ID
       const newCourseId = `folder-${Date.now()}`;
       
-      // Add to mock courses
       const newCourse: Course = {
         id: newCourseId,
         title: courseData.title,
@@ -1301,24 +1270,19 @@ export class CoursesAPI {
   static async importFromTelegram(courseData: ImportCourseData, telegramData: TelegramImportData): Promise<{ success: boolean; courseId?: string; error?: string }> {
     await delay(1500);
     try {
-      // Mock validation
       if (!courseData.title || !telegramData.channelId) {
         return { success: false, error: 'Title and Telegram channel ID are required' };
       }
 
-      // Validate authentication method
       if (telegramData.authMethod === 'bot' && !telegramData.botToken) {
         return { success: false, error: 'Bot token is required when using bot authentication' };
       }
 
-      // Generate new course ID
       const newCourseId = `telegram-${Date.now()}`;
       
-      // Create description based on auth method and content format
       const authMethodText = telegramData.authMethod === 'telethon' ? 'Telethon (User Auth)' : 'Bot Token';
       const contentFormatText = telegramData.contentFormat === 'zip' ? 'ZIP modules' : 'Stream format';
       
-      // Add to mock courses
       const newCourse: Course = {
         id: newCourseId,
         title: courseData.title,

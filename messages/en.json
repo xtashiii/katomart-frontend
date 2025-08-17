@@ -7,7 +7,8 @@
     "adminPanel": "Admin Panel",
     "scrappers": "Scrappers",
     "cognitahz": "Cognitahz",
-    "backups": "Backups"
+    "backups": "Backups",
+    "logout": "Logout"
   },
   "auth": {
     "loginRequired": "Authentication Required",
@@ -290,5 +291,24 @@
       "scanning": "Scanning folder...",
       "filesFound": "{count} files found"
     }
+  },
+  "scrappers": {
+    "title": "Scrappers",
+    "platformsTab": "Platforms",
+    "librariesTab": "Libraries",
+    "coursesTab": "Courses",
+    "librariesComingSoon": "Libraries content coming soon."
+  },
+  "general": {
+    "loading": "Loading..."
+  },
+  "platform": {
+    "settings": "Platform Settings"
+  },
+  "download": {
+    "settings": "Download Settings"
+  },
+  "progress": {
+    "progress": "Download Progress"
   }
 }

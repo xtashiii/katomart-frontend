@@ -3,11 +3,31 @@
     "brand": "Katomart",
     "help": "Ajuda (Documentação)"
   },
+  "scrappers": {
+    "title": "Scrapers",
+    "platformsTab": "Plataformas",
+    "librariesTab": "Bibliotecas",
+    "coursesTab": "Cursos",
+    "librariesComingSoon": "Conteúdo de bibliotecas em breve."
+  },
+  "general": {
+    "loading": "Carregando..."
+  },
+  "platform": {
+    "settings": "Configurações da plataforma"
+  },
+  "download": {
+    "settings": "Configurações de download"
+  },
+  "progress": {
+    "progress": "Progresso do download"
+  },
   "buttons": {
     "adminPanel": "Painel Admin",
     "scrappers": "Scrapers",
     "cognitahz": "Cognitahz",
-    "backups": "Backups"
+    "backups": "Backups",
+    "logout": "Sair"
   },
   "auth": {
     "loginRequired": "Autenticação Necessária",
