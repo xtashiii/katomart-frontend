@@ -104,9 +104,10 @@ body {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
-.header-lang-select select option {
-    color: black;
-    background-color: white;
+
+select, select option {
+    color: #222;
+    background: #fff;
 }
 
 .header a {
