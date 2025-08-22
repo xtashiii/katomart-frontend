@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,7 +11,8 @@ import FilterBar from '@/components/FilterBar';
 import CourseCard from '@/components/CourseCard';
 import ImportCourseCard from '@/components/ImportCourseCard';
 import Pagination from '@/components/Pagination';
-import { CoursesAPI, Course, CoursesResponse } from '@/lib/coursesAPI';
+import { CoursesAPI } from '@/lib/api';
+import { Course, CoursesResponse } from '@/app/api/courses/types';
 
 export default function CognitahzPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,47 +36,22 @@ export default function CognitahzPage() {
   const { isLoggedIn, logout, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const t = useTranslations('cognitahz');
+  const tGeneral = useTranslations('general');
 
   const coursesPerPage = 6;
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      if (!authLoading && !isLoggedIn) {
-        router.push('/');
-        return;
-      }
-
-      if (isLoggedIn && !authLoading) {
-        const isValid = await verifyAuth();
-        if (!isValid) {
-          logout();
-          router.push('/');
-          return;
-        }
-
-        setIsLoading(false);
-        await loadFilterOptions();
-        loadCourses();
-      } else if (!authLoading) {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [isLoggedIn, authLoading, logout, router]);
 
   const loadFilterOptions = async () => {
     try {
       const filterOptions = await CoursesAPI.getFilterOptions();
-      setAvailableCategories(filterOptions.categories);
-      setAvailablePlatforms(filterOptions.platforms);
-      setAvailableLanguages(filterOptions.languages);
+      setAvailableCategories(filterOptions.categories.map(c => c.value));
+      setAvailablePlatforms(filterOptions.platforms.map(p => p.value));
+      setAvailableLanguages(filterOptions.languages.map(l => l.value));
     } catch (err) {
       console.error('Failed to load filter options:', err);
     }
   };
 
-  const loadCourses = async (
+  const loadCourses = useCallback(async (
     page = 1, 
     search = searchQuery, 
     category = selectedCategory,
@@ -101,7 +77,33 @@ export default function CognitahzPage() {
     } finally {
       setLoadingCourses(false);
     }
-  };
+  }, [searchQuery, selectedCategory, selectedPlatform, selectedDuration, coursesPerPage, t]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (!authLoading && !isLoggedIn) {
+        router.push('/');
+        return;
+      }
+
+      if (isLoggedIn && !authLoading) {
+        const isValid = await verifyAuth();
+        if (!isValid) {
+          logout();
+          router.push('/');
+          return;
+        }
+
+        setIsLoading(false);
+        await loadFilterOptions();
+        loadCourses();
+      } else if (!authLoading) {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [isLoggedIn, authLoading, logout, router, loadCourses]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -177,7 +179,7 @@ export default function CognitahzPage() {
         <Header />
         <main className="main-content">
           <div className="content-wrapper" style={{ textAlign: 'center', padding: '2rem' }}>
-            <div className="loading-spinner">Loading...</div>
+            <div className="loading-spinner">{tGeneral('loading')}</div>
           </div>
         </main>
       </div>

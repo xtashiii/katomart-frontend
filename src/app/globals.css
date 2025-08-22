@@ -129,8 +129,8 @@ select, select option {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3rem 1rem;
-    min-height: calc(100vh - 80px);
+    /* padding: 3rem 1rem; */
+    /* min-height: calc(100vh - 80px); */
 }
 
 .content-wrapper {
@@ -3173,4 +3173,20 @@ select, select option {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* Toast Notification Animation */
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
 }

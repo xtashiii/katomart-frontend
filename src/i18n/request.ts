@@ -4,7 +4,6 @@ const locales = ['en', 'es', 'pt'];
 const defaultLocale = 'en';
 
 export default getRequestConfig(async ({locale}) => {
-  // console.log(`Incoming locale: ${locale}`);
 
   const validLocale = locale && locales.includes(locale) ? locale : defaultLocale;
   

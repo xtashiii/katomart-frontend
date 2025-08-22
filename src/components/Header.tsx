@@ -11,6 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
   const t = useTranslations('header');
+  const tButtons = useTranslations('buttons');
   const params = useParams();
   const locale = params.locale as string;
   const { user, logout, isLoggedIn } = useAuth();
@@ -29,7 +30,7 @@ const Header = () => {
             <button 
               onClick={logout}
               className="logout-button"
-              title="Logout"
+              title={tButtons('logout')}
             >
               <FontAwesomeIcon icon={faSignOutAlt} />
             </button>

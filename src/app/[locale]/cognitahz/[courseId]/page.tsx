@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
@@ -8,7 +8,8 @@ import { verifyAuth } from '@/lib/auth';
 import Header from '@/components/Header';
 import CourseTreeSidebar from '@/components/CourseTreeSidebar';
 import CourseContent from '@/components/CourseContent';
-import { CoursesAPI, DetailedCourse, Lesson } from '@/lib/coursesAPI';
+import { CoursesAPI } from '@/lib/api';
+import { DetailedCourse, Lesson } from '@/app/api/courses/types';
 
 export default function CoursePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,61 +26,7 @@ export default function CoursePage() {
   
   const courseId = params.courseId as string;
 
-  useEffect(() => {
-    const checkAuthAndLoadCourse = async () => {
-      if (!authLoading && !isLoggedIn) {
-        router.push('/');
-        return;
-      }
-
-      if (isLoggedIn && !authLoading) {
-        const isValid = await verifyAuth();
-        if (!isValid) {
-          logout();
-          router.push('/');
-          return;
-        }
-
-        await loadCourse();
-      }
-    };
-
-    checkAuthAndLoadCourse();
-  }, [isLoggedIn, authLoading, courseId, logout, router]);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (mobile) {
-        setSidebarOpen(false);
-      } else {
-        setSidebarOpen(true);
-      }
-    };
-
-    checkMobile();
-
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.altKey && e.key === 'm') {
-        e.preventDefault();
-        toggleSidebar();
-      }
-      if (e.key === 'Escape' && sidebarOpen) {
-        closeSidebar();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [sidebarOpen]);
-
-  const loadCourse = async () => {
+  const loadCourse = useCallback(async () => {
     if (!courseId) return;
     
     setIsLoading(true);
@@ -101,7 +48,69 @@ export default function CoursePage() {
     } finally {
       setIsLoading(false);
     }
+  }, [courseId, t]);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarOpen(!sidebarOpen);
+  }, [sidebarOpen]);
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
   };
+
+  useEffect(() => {
+    const checkAuthAndLoadCourse = async () => {
+      if (!authLoading && !isLoggedIn) {
+        router.push('/');
+        return;
+      }
+
+      if (isLoggedIn && !authLoading) {
+        const isValid = await verifyAuth();
+        if (!isValid) {
+          logout();
+          router.push('/');
+          return;
+        }
+
+        await loadCourse();
+      }
+    };
+
+    checkAuthAndLoadCourse();
+  }, [isLoggedIn, authLoading, courseId, logout, router, loadCourse]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setSidebarOpen(false);
+      } else {
+        setSidebarOpen(true);
+      }
+    };
+
+    checkMobile();
+
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [toggleSidebar]);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.altKey && e.key === 'm') {
+        e.preventDefault();
+        toggleSidebar();
+      }
+      if (e.key === 'Escape' && sidebarOpen) {
+        closeSidebar();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [sidebarOpen, toggleSidebar]);
 
   const handleLessonSelect = (lesson: Lesson) => {
     setSelectedLesson(lesson);
@@ -113,8 +122,8 @@ export default function CoursePage() {
     try {
       await CoursesAPI.updateLessonNotes(course.id, lessonId, notes);
       const updatedCourse = { ...course };
-      for (const module of updatedCourse.modules) {
-        const lesson = module.lessons.find(l => l.id === lessonId);
+      for (const courseModule of updatedCourse.modules) {
+        const lesson = courseModule.lessons.find(l => l.id === lessonId);
         if (lesson) {
           lesson.notes = notes;
           break;
@@ -144,51 +153,51 @@ export default function CoursePage() {
     if (!course) return;
     
     try {
-      if ('rateLessonContent' in CoursesAPI && typeof (CoursesAPI as any).rateLessonContent === 'function') {
-        await (CoursesAPI as any).rateLessonContent(course.id, lessonId, rating);
+      if ('rateLessonContent' in CoursesAPI && typeof (CoursesAPI as { rateLessonContent?: (courseId: string, lessonId: string, rating: number) => Promise<void> }).rateLessonContent === 'function') {
+        await (CoursesAPI as { rateLessonContent: (courseId: string, lessonId: string, rating: number) => Promise<void> }).rateLessonContent(course.id, lessonId, rating);
       } else {
         console.log('Rating lesson:', lessonId, 'with rating:', rating);
       }
       
       const updatedCourse = { ...course };
-      for (const module of updatedCourse.modules) {
-        const lesson = module.lessons.find(l => l.id === lessonId);
+      for (const courseModule of updatedCourse.modules) {
+        const lesson = courseModule.lessons.find(l => l.id === lessonId);
         if (lesson) {
-          (lesson as any).userRating = rating;
+          lesson.userRating = rating;
           break;
         }
       }
       setCourse(updatedCourse);
       if (selectedLesson && selectedLesson.id === lessonId) {
-        setSelectedLesson({ ...selectedLesson, userRating: rating } as any);
+        setSelectedLesson({ ...selectedLesson, userRating: rating });
       }
     } catch (err) {
       console.error('Failed to rate lesson:', err);
     }
   };
 
-  const handleMarkersUpdate = async (lessonId: string, markers: any[]) => {
+  const handleMarkersUpdate = async (lessonId: string, markers: unknown[]) => {
     if (!course) return;
     
     try {
-      if ('updateLessonMarkers' in CoursesAPI && typeof (CoursesAPI as any).updateLessonMarkers === 'function') {
-        await (CoursesAPI as any).updateLessonMarkers(course.id, lessonId, markers);
+      if ('updateLessonMarkers' in CoursesAPI && typeof (CoursesAPI as { updateLessonMarkers?: (courseId: string, lessonId: string, markers: unknown[]) => Promise<void> }).updateLessonMarkers === 'function') {
+        await (CoursesAPI as { updateLessonMarkers: (courseId: string, lessonId: string, markers: unknown[]) => Promise<void> }).updateLessonMarkers(course.id, lessonId, markers);
       } else {
         // For now, just update local state until API method is implemented
         console.log('Updating markers for lesson:', lessonId, markers);
       }
       
       const updatedCourse = { ...course };
-      for (const module of updatedCourse.modules) {
-        const lesson = module.lessons.find(l => l.id === lessonId);
+      for (const courseModule of updatedCourse.modules) {
+        const lesson = courseModule.lessons.find(l => l.id === lessonId);
         if (lesson) {
-          (lesson as any).videoMarkers = markers;
+          (lesson as { videoMarkers?: unknown[] }).videoMarkers = markers;
           break;
         }
       }
       setCourse(updatedCourse);
       if (selectedLesson && selectedLesson.id === lessonId) {
-        setSelectedLesson({ ...selectedLesson, videoMarkers: markers } as any);
+        setSelectedLesson({ ...selectedLesson, videoMarkers: markers } as Lesson & { videoMarkers?: unknown[] });
       }
     } catch (err) {
       console.error('Failed to update markers:', err);
@@ -197,14 +206,6 @@ export default function CoursePage() {
 
   const handleBackToCourses = () => {
     router.push('/cognitahz');
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
   };
 
   if (isLoading || authLoading) {

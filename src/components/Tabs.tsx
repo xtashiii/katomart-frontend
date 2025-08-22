@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface Tab {
   id: string;
@@ -18,24 +18,26 @@ interface TabsProps {
 export default function Tabs({ tabs, activeTab, onTabChange }: TabsProps) {
   return (
     <div>
-      <div className="flex border-b border-gray-300">
+      <div className="flex justify-between border-b-2 border-gray-200 bg-gray-50 rounded-t-lg overflow-hidden">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             disabled={tab.disabled}
             onClick={() => onTabChange(tab.id)}
-            className={`py-2 px-4 text-sm font-medium text-center border-b-2 ${
+            className={`flex-1 py-3 px-3 sm:px-6 text-xs sm:text-sm font-semibold text-center border-b-3 transition-all duration-200 ${
               activeTab === tab.id
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
+                ? 'border-primary text-primary bg-white shadow-sm'
+                : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-100 hover:border-gray-300'
+            } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-gray-600`}
           >
-            {tab.label}
+            <span className="block truncate leading-tight">{tab.label}</span>
           </button>
         ))}
       </div>
-      <div className="p-4">
-        {tabs.find((tab) => tab.id === activeTab)?.content}
+      <div className="bg-white rounded-b-lg border-x-2 border-b-2 border-gray-200">
+        <div className="p-4 sm:p-6">
+          {tabs.find((tab) => tab.id === activeTab)?.content}
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,9 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import { AuthProvider } from '@/contexts/AuthContext';
+import Footer from '@/components/Footer';
 import "../globals.css";
 
 const inter = Inter({
@@ -47,7 +49,12 @@ export default async function LocaleLayout({
       <body className={`${inter.variable} antialiased font-sans`}>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            {children}
+            <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ flex: 1 }}>
+                {children}
+              </div>
+              <Footer />
+            </div>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>

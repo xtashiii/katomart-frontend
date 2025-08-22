@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from 'next/image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -17,7 +18,7 @@ import {
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { DetailedCourse, Lesson, Module } from "@/lib/coursesAPI";
+import { DetailedCourse, Lesson, Module } from "@/app/api/courses/types";
 
 interface CourseTreeSidebarProps {
   course: DetailedCourse;
@@ -40,9 +41,8 @@ export default function CourseTreeSidebar({
 }: CourseTreeSidebarProps) {
   const t = useTranslations("course");
   const [expandedModules, setExpandedModules] = useState<Set<string>>(
-    new Set(course.modules.map((m) => m.id)) // Expand all modules by default
+    new Set(course.modules.map((m) => m.id))
   );
-  const [ratings, setRatings] = useState<{ [lessonId: string]: number }>({});
 
   const toggleModule = (moduleId: string) => {
     const newExpanded = new Set(expandedModules);
@@ -58,13 +58,13 @@ export default function CourseTreeSidebar({
     return new Date(dateString).toLocaleDateString();
   };
 
-  const renderStars = (rating: number, lessonId: string) => {
+  const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <FontAwesomeIcon
         key={i}
         icon={faStar}
         className={`star ${i < rating ? "filled" : "empty"}`}
-        onClick={() => handleRatingChange(lessonId, i + 1)}
+        onClick={() => {}}
       />
     ));
   };
@@ -98,9 +98,7 @@ export default function CourseTreeSidebar({
     }
   };
 
-  const handleRatingChange = (lessonId: string, newRating: number) => {
-    setRatings((prevRatings) => ({ ...prevRatings, [lessonId]: newRating }));
-  };
+
 
   return (
     <div className={`course-tree-sidebar ${className}`}>
@@ -118,7 +116,7 @@ export default function CourseTreeSidebar({
       <div className="course-overview">
         <div className="course-thumbnail">
           {course.thumbnail ? (
-            <img src={course.thumbnail} alt={course.title} />
+            <Image src={course.thumbnail} alt={course.title} width={200} height={150} />
           ) : (
             <div className="course-thumbnail-placeholder">
               <FontAwesomeIcon icon={faBook} size="2x" />
@@ -203,7 +201,7 @@ export default function CourseTreeSidebar({
                           <div>
                             {moduleRating > 0 && (
                               <div className="module-rating">
-                                {renderStars(moduleRating, module.id)}
+                                {renderStars(moduleRating)}
                               </div>
                             )}
                           </div>
@@ -243,7 +241,7 @@ export default function CourseTreeSidebar({
                             </div>
                             {moduleRating > 0 && (
                               <div className="module-rating">
-                                {renderStars(moduleRating, module.id)}
+                                {renderStars(moduleRating)}
                               </div>
                             )}
                           </div>

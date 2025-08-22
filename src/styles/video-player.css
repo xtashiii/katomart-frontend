@@ -22,6 +22,16 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* Video.js Container - Wrapper for dynamically created video elements */
+.video-js-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
 /* Video.js Player - Fills the container */
 .video-js {
   position: absolute;
@@ -119,12 +129,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .video-js .vjs-playback-rate .vjs-playback-rate-value {
   font-size: 1.1em;
   font-weight: 600;
-  line-height: 1; /* Use flex alignment */
+  line-height: 1;
   text-align: center;
   color: var(--vjs-theme-text);
   pointer-events: none;
@@ -135,9 +146,45 @@
   border-radius: 5px;
 }
 
-/* Hide the icon placeholder to prevent overlays */
+/* Show the icon placeholder but position it correctly */
 .video-js .vjs-playback-rate > .vjs-icon-placeholder {
   display: none;
+}
+
+/* Ensure playback rate menu is visible and properly positioned */
+.video-js .vjs-playback-rate .vjs-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  min-width: 60px;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1000;
+}
+
+/* Fix menu button popup positioning */
+.video-js .vjs-menu-button-popup {
+  position: relative;
+}
+
+.video-js .vjs-menu-button-popup .vjs-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.video-js .vjs-menu-button-popup:hover .vjs-menu,
+.video-js .vjs-menu-button-popup.vjs-hover .vjs-menu {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Progress Bar */
@@ -217,21 +264,79 @@
 }
 
 /* Menus (e.g., playback rates) */
-.video-js .vjs-menu-button-popup .vjs-menu {
+.video-js .vjs-menu {
   background-color: var(--vjs-theme-background-solid);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  min-width: 60px;
+  padding: 4px 0;
 }
 
 .video-js .vjs-menu-item {
   color: var(--vjs-theme-text);
   transition: background-color 0.2s ease;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  display: block;
 }
 
-.video-js .vjs-menu-item:hover {
+.video-js .vjs-menu-item:hover,
+.video-js .vjs-menu-item:focus {
   background-color: var(--vjs-theme-primary);
   color: var(--vjs-theme-text);
+  outline: none;
+}
+
+.video-js .vjs-menu-item.vjs-selected {
+  background-color: var(--vjs-theme-accent);
+  color: var(--vjs-theme-text);
+}
+
+/* Ensure menu content is visible */
+.video-js .vjs-menu-content {
+  display: block;
+  position: relative;
+}
+
+/* Additional fixes for playback rate interaction */
+.video-js .vjs-playback-rate-menu-button {
+  position: relative;
+}
+
+.video-js .vjs-playback-rate-menu-button .vjs-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+.video-js .vjs-playback-rate-menu-button:hover .vjs-menu,
+.video-js .vjs-playback-rate-menu-button.vjs-hover .vjs-menu,
+.video-js .vjs-playback-rate-menu-button .vjs-menu:hover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Fix for menu button interaction */
+.video-js .vjs-menu-button > .vjs-menu {
+  pointer-events: auto;
+}
+
+.video-js .vjs-menu-button:hover > .vjs-menu,
+.video-js .vjs-menu-button.vjs-hover > .vjs-menu {
+  pointer-events: auto;
 }
 
 /* Marker styles */

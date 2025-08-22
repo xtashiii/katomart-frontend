@@ -30,7 +30,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
     setError(null);
 
     try {
-      const tokens = await apiLogin(credentials);
+      await apiLogin(credentials);
       
       const userData = {
         id: '1',
@@ -42,8 +42,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
       onSuccess();
       onClose();
       setCredentials({ username: '', password: '' });
-    } catch (error: any) {
-      if (error.message === 'Invalid credentials') {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message === 'Invalid credentials') {
         setError(t('loginError'));
       } else {
         setError(t('networkError'));
@@ -143,9 +143,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
           
           {process.env.NODE_ENV === 'development' && (
             <div className="test-credentials">
-              <h4>Test Credentials:</h4>
-              <p>Username: <code>admin</code>, Password: <code>password123</code></p>
-              <p>Username: <code>user</code>, Password: <code>userpass</code></p>
+              <h4>{t('testCredentials')}</h4>
+              <p>Username: <code>admin</code>, Password: <code>admin123</code></p>
               <p>Username: <code>test</code>, Password: <code>test123</code></p>
             </div>
           )}

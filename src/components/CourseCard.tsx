@@ -1,8 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faClock, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faClock } from '@fortawesome/free-solid-svg-icons';
 
 interface Course {
   id: string;
@@ -46,7 +47,7 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
     >
       <div className="course-thumbnail">
         {course.thumbnail ? (
-          <img src={course.thumbnail} alt={course.title} />
+          <Image src={course.thumbnail} alt={course.title} width={300} height={200} />
         ) : (
           <div className="course-thumbnail-placeholder">
             <FontAwesomeIcon icon={faBook} size="2x" />

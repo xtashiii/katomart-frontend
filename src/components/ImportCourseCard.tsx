@@ -19,7 +19,7 @@ export default function ImportCourseCard({ onClick }: ImportCourseCardProps) {
         </div>
         <h3 className="import-course-title">{t('importUpload')}</h3>
         <p className="import-course-description">
-          Upload your course materials or import from external sources
+          {t('importDescription')}
         </p>
       </div>
     </div>

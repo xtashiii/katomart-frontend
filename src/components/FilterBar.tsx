@@ -53,15 +53,15 @@ export default function FilterBar({
 
   const categoryOptions = [
     { key: 'all', label: t('courses.allCategories') },
-    ...availableCategories.map(category => ({
+    ...availableCategories.filter(category => category !== 'all').map((category: string) => ({
       key: category,
-      label: t(`categories.${category}` as any) || category
+      label: category
     }))
   ];
 
   const platformOptions = [
     { key: 'all', label: t('courses.allPlatforms') },
-    ...availablePlatforms.map(platform => ({
+    ...availablePlatforms.filter(platform => platform !== 'all').map(platform => ({
       key: platform,
       label: platform
     }))
@@ -98,7 +98,7 @@ export default function FilterBar({
 
   const languageOptions = [
     { key: 'all', label: t('courses.allLanguages') },
-    ...availableLanguages.map(language => ({
+    ...availableLanguages.filter(language => language !== 'all').map(language => ({
       key: language,
       label: language
     }))

@@ -6,7 +6,8 @@ import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { verifyAuth } from '@/lib/auth';
 import Header from '@/components/Header';
-import { CoursesAPI, ImportCourseData, TelegramImportData } from '@/lib/coursesAPI';
+import { CoursesAPI } from '@/lib/api';
+import { ImportCourseData, TelegramImportData } from '@/app/api/courses/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faUpload, 
@@ -69,6 +70,7 @@ export default function ImportCoursePage() {
   const router = useRouter();
   const t = useTranslations('import');
   const tCommon = useTranslations('import.common');
+  const tGeneral = useTranslations('general');
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -93,11 +95,11 @@ export default function ImportCoursePage() {
     checkAuth();
   }, [isLoggedIn, authLoading, logout, router]);
 
-  const handleInputChange = (field: keyof ImportFormData, value: any) => {
+  const handleInputChange = (field: keyof ImportFormData, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleTelegramDataChange = (field: keyof TelegramImportData, value: any) => {
+  const handleTelegramDataChange = (field: keyof TelegramImportData, value: unknown) => {
     setFormData(prev => ({
       ...prev,
       telegramData: {
@@ -139,7 +141,7 @@ export default function ImportCoursePage() {
     handleFileSelect(files);
   };
 
-  const simulateFolderScan = async (path: string) => {
+  const simulateFolderScan = async () => {
     setIsScanningFolder(true);
     await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate scanning
     
@@ -163,7 +165,7 @@ export default function ImportCoursePage() {
   const handleFolderPathChange = (path: string) => {
     handleInputChange('folderPath', path);
     if (path.trim()) {
-      simulateFolderScan(path);
+      simulateFolderScan();
     } else {
       setFolderScanResults([]);
     }
@@ -184,34 +186,34 @@ export default function ImportCoursePage() {
       switch (activeTab) {
         case 'upload':
           if (!selectedFiles || selectedFiles.length === 0) {
-            throw new Error('No files selected');
+            throw new Error(tCommon('noFilesSelected'));
           }
-          result = await CoursesAPI.uploadCourseFiles(formData, selectedFiles);
+          result = await CoursesAPI.uploadCourseFiles(formData, Array.from(selectedFiles));
           break;
 
         case 'url':
           if (!formData.sourceUrl?.trim()) {
-            throw new Error('Source URL is required');
+            throw new Error(tCommon('sourceUrlRequired'));
           }
           result = await CoursesAPI.importCourseFromUrl(formData);
           break;
 
         case 'telegram':
           if (!formData.telegramData?.channelId?.trim()) {
-            throw new Error('Telegram channel ID is required');
+            throw new Error(tCommon('channelIdRequired'));
           }
           result = await CoursesAPI.importFromTelegram(formData, formData.telegramData);
           break;
 
         case 'folder':
           if (!formData.folderPath?.trim()) {
-            throw new Error('Folder path is required');
+            throw new Error(tCommon('folderPathRequired'));
           }
           result = await CoursesAPI.importFromFolder(formData, formData.folderPath, formData.createWeakLink || false);
           break;
 
         default:
-          throw new Error('Invalid import method');
+          throw new Error(tCommon('invalidImportMethod'));
       }
 
       if (result.success) {
@@ -220,10 +222,10 @@ export default function ImportCoursePage() {
           router.push('/cognitahz');
         }, 2000);
       } else {
-        setImportError(result.error || 'Import failed');
+        setImportError(result.error || tCommon('importFailed'));
       }
     } catch (error) {
-      setImportError(error instanceof Error ? error.message : 'Import failed');
+      setImportError(error instanceof Error ? error.message : tCommon('importFailed'));
     } finally {
       setIsImporting(false);
     }
@@ -265,7 +267,7 @@ export default function ImportCoursePage() {
         <Header />
         <main className="main-content">
           <div className="content-wrapper" style={{ textAlign: 'center', padding: '2rem' }}>
-            <div className="loading-spinner">Loading...</div>
+            <div className="loading-spinner">{tGeneral('loading')}</div>
           </div>
         </main>
       </div>
@@ -281,7 +283,7 @@ export default function ImportCoursePage() {
             <div className="import-success">
               <FontAwesomeIcon icon={faCheckCircle} size="3x" className="success-icon" />
               <h2>{tCommon('success')}</h2>
-              <p>Redirecting to courses...</p>
+              <p>{t('redirecting')}</p>
             </div>
           </div>
         </main>
@@ -334,7 +336,7 @@ export default function ImportCoursePage() {
           <div className="import-content">
             {/* Common Form Fields */}
             <div className="form-section">
-              <h3>Course Information</h3>
+              <h3>{t('courseInformation')}</h3>
               <div className="form-grid">
                 <div className="form-group">
                   <label htmlFor="title">{tCommon('courseTitle')} *</label>
@@ -368,14 +370,14 @@ export default function ImportCoursePage() {
                     onChange={(e) => handleInputChange('category', e.target.value)}
                     className="form-select"
                   >
-                    <option value="programming">Programming</option>
-                    <option value="design">Design</option>
-                    <option value="business">Business</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="photography">Photography</option>
-                    <option value="music">Music</option>
-                    <option value="language">Language</option>
-                    <option value="other">Other</option>
+                    <option value="programming">{t('categories.programming')}</option>
+                    <option value="design">{t('categories.design')}</option>
+                    <option value="business">{t('categories.business')}</option>
+                    <option value="marketing">{t('categories.marketing')}</option>
+                    <option value="photography">{t('categories.photography')}</option>
+                    <option value="music">{t('categories.music')}</option>
+                    <option value="language">{t('categories.language')}</option>
+                    <option value="other">{t('categories.other')}</option>
                   </select>
                 </div>
 
@@ -387,9 +389,9 @@ export default function ImportCoursePage() {
                     onChange={(e) => handleInputChange('difficulty', e.target.value as 'beginner' | 'intermediate' | 'advanced')}
                     className="form-select"
                   >
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
+                    <option value="beginner">{t('difficulty.beginner')}</option>
+                    <option value="intermediate">{t('difficulty.intermediate')}</option>
+                    <option value="advanced">{t('difficulty.advanced')}</option>
                   </select>
                 </div>
 
@@ -724,7 +726,7 @@ export default function ImportCoursePage() {
                           <li key={index}>{file}</li>
                         ))}
                         {folderScanResults.length > 10 && (
-                          <li>... and {folderScanResults.length - 10} more files</li>
+                          <li>{t('folder.moreFiles', { count: folderScanResults.length - 10 })}</li>
                         )}
                       </ul>
                     </div>
@@ -760,7 +762,7 @@ export default function ImportCoursePage() {
                 onClick={resetForm}
                 disabled={isImporting}
               >
-                Reset
+                {t('reset')}
               </button>
               <button 
                 type="button" 
