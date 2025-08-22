@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFilter,
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface FilterBarProps {
   selectedCategory: string;
@@ -27,8 +31,8 @@ interface FilterBarProps {
   onProgressChange: (progress: string) => void;
 }
 
-export default function FilterBar({ 
-  selectedCategory, 
+export default function FilterBar({
+  selectedCategory,
   selectedPlatform,
   selectedDuration,
   selectedFileSize,
@@ -46,46 +50,50 @@ export default function FilterBar({
   onDownloadStatusChange,
   onLastUpdatedChange,
   onLanguageChange,
-  onProgressChange
+  onProgressChange,
 }: FilterBarProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const t = useTranslations('cognitahz');
 
   const categoryOptions = [
     { key: 'all', label: t('courses.allCategories') },
-    ...availableCategories.filter(category => category !== 'all').map((category: string) => ({
-      key: category,
-      label: category
-    }))
+    ...availableCategories
+      .filter((category) => category !== 'all')
+      .map((category: string) => ({
+        key: category,
+        label: category,
+      })),
   ];
 
   const platformOptions = [
     { key: 'all', label: t('courses.allPlatforms') },
-    ...availablePlatforms.filter(platform => platform !== 'all').map(platform => ({
-      key: platform,
-      label: platform
-    }))
+    ...availablePlatforms
+      .filter((platform) => platform !== 'all')
+      .map((platform) => ({
+        key: platform,
+        label: platform,
+      })),
   ];
 
   const durationOptions = [
     { key: 'all', label: t('courses.allDurations') },
     { key: '0-20', label: t('courses.duration0to20') },
     { key: '20-40', label: t('courses.duration20to40') },
-    { key: '40+', label: t('courses.duration40plus') }
+    { key: '40+', label: t('courses.duration40plus') },
   ];
 
   const fileSizeOptions = [
     { key: 'all', label: t('courses.allFileSizes') },
     { key: 'small', label: t('courses.fileSizeSmall') },
     { key: 'medium', label: t('courses.fileSizeMedium') },
-    { key: 'large', label: t('courses.fileSizeLarge') }
+    { key: 'large', label: t('courses.fileSizeLarge') },
   ];
 
   const downloadStatusOptions = [
     { key: 'all', label: t('courses.allDownloadStatuses') },
     { key: 'complete', label: t('courses.downloadComplete') },
     { key: 'partial', label: t('courses.downloadPartial') },
-    { key: 'missing', label: t('courses.downloadMissing') }
+    { key: 'missing', label: t('courses.downloadMissing') },
   ];
 
   const lastUpdatedOptions = [
@@ -93,15 +101,17 @@ export default function FilterBar({
     { key: 'week', label: t('courses.lastWeek') },
     { key: 'month', label: t('courses.lastMonth') },
     { key: '3months', label: t('courses.last3Months') },
-    { key: 'older', label: t('courses.older') }
+    { key: 'older', label: t('courses.older') },
   ];
 
   const languageOptions = [
     { key: 'all', label: t('courses.allLanguages') },
-    ...availableLanguages.filter(language => language !== 'all').map(language => ({
-      key: language,
-      label: language
-    }))
+    ...availableLanguages
+      .filter((language) => language !== 'all')
+      .map((language) => ({
+        key: language,
+        label: language,
+      })),
   ];
 
   const progressOptions = [
@@ -109,25 +119,27 @@ export default function FilterBar({
     { key: 'not-started', label: t('courses.notStarted') },
     { key: 'in-progress', label: t('courses.inProgress') },
     { key: 'completed', label: t('courses.completed') },
-    { key: 'bookmarked', label: t('courses.bookmarked') }
+    { key: 'bookmarked', label: t('courses.bookmarked') },
   ];
 
   return (
     <div className="filter-bar">
-      <div 
+      <div
         className="filter-header"
         onClick={() => setIsExpanded(!isExpanded)}
         style={{ cursor: 'pointer' }}
       >
         <FontAwesomeIcon icon={faFilter} />
         <span>{t('courses.filters')}</span>
-        <FontAwesomeIcon 
-          icon={isExpanded ? faChevronUp : faChevronDown} 
+        <FontAwesomeIcon
+          icon={isExpanded ? faChevronUp : faChevronDown}
           className="filter-toggle-icon"
         />
       </div>
-      
-      <div className={`filter-content ${isExpanded ? 'expanded' : 'collapsed'}`}>
+
+      <div
+        className={`filter-content ${isExpanded ? 'expanded' : 'collapsed'}`}
+      >
         <div className="filter-grid">
           <div className="filter-item">
             <label className="filter-label">{t('courses.category')}</label>
@@ -136,7 +148,7 @@ export default function FilterBar({
               onChange={(e) => onCategoryChange(e.target.value)}
               className="filter-select"
             >
-              {categoryOptions.map(option => (
+              {categoryOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -151,7 +163,7 @@ export default function FilterBar({
               onChange={(e) => onPlatformChange(e.target.value)}
               className="filter-select"
             >
-              {platformOptions.map(option => (
+              {platformOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -166,7 +178,7 @@ export default function FilterBar({
               onChange={(e) => onDurationChange(e.target.value)}
               className="filter-select"
             >
-              {durationOptions.map(option => (
+              {durationOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -181,7 +193,7 @@ export default function FilterBar({
               onChange={(e) => onFileSizeChange(e.target.value)}
               className="filter-select"
             >
-              {fileSizeOptions.map(option => (
+              {fileSizeOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -190,13 +202,15 @@ export default function FilterBar({
           </div>
 
           <div className="filter-item">
-            <label className="filter-label">{t('courses.downloadStatus')}</label>
+            <label className="filter-label">
+              {t('courses.downloadStatus')}
+            </label>
             <select
               value={selectedDownloadStatus}
               onChange={(e) => onDownloadStatusChange(e.target.value)}
               className="filter-select"
             >
-              {downloadStatusOptions.map(option => (
+              {downloadStatusOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -211,7 +225,7 @@ export default function FilterBar({
               onChange={(e) => onLastUpdatedChange(e.target.value)}
               className="filter-select"
             >
-              {lastUpdatedOptions.map(option => (
+              {lastUpdatedOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -226,7 +240,7 @@ export default function FilterBar({
               onChange={(e) => onLanguageChange(e.target.value)}
               className="filter-select"
             >
-              {languageOptions.map(option => (
+              {languageOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>
@@ -241,7 +255,7 @@ export default function FilterBar({
               onChange={(e) => onProgressChange(e.target.value)}
               className="filter-select"
             >
-              {progressOptions.map(option => (
+              {progressOptions.map((option) => (
                 <option key={option.key} value={option.key}>
                   {option.label}
                 </option>

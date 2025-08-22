@@ -1,23 +1,32 @@
-import { DetailedCourse, CoursesResponse, CoursesParams, ImportCourseData, TelegramImportData } from '@/app/api/courses/types';
+import {
+  DetailedCourse,
+  CoursesResponse,
+  CoursesParams,
+  ImportCourseData,
+  TelegramImportData,
+} from '@/app/api/courses/types';
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export class CoursesAPI {
-  static async getCourses(params: CoursesParams = {}): Promise<CoursesResponse> {
+  static async getCourses(
+    params: CoursesParams = {}
+  ): Promise<CoursesResponse> {
     const searchParams = new URLSearchParams();
-    
+
     if (params.page) searchParams.set('page', params.page.toString());
     if (params.limit) searchParams.set('limit', params.limit.toString());
     if (params.search) searchParams.set('search', params.search);
     if (params.category) searchParams.set('category', params.category);
     if (params.platform) searchParams.set('platform', params.platform);
-    if (params.durationRange) searchParams.set('durationRange', params.durationRange);
+    if (params.durationRange)
+      searchParams.set('durationRange', params.durationRange);
 
     const response = await fetch(`/api/courses?${searchParams.toString()}`);
     if (!response.ok) {
       throw new Error('Failed to fetch courses');
     }
-    
+
     return response.json();
   }
 
@@ -27,7 +36,7 @@ export class CoursesAPI {
       if (response.status === 404) return null;
       throw new Error('Failed to fetch course details');
     }
-    
+
     return response.json();
   }
 
@@ -43,7 +52,7 @@ export class CoursesAPI {
         { value: 'science', label: 'Science' },
         { value: 'math', label: 'Math' },
         { value: 'history', label: 'History' },
-        { value: 'art', label: 'Art' }
+        { value: 'art', label: 'Art' },
       ],
       platforms: [
         { value: 'all', label: 'All Platforms' },
@@ -56,13 +65,13 @@ export class CoursesAPI {
         { value: 'MasterClass', label: 'MasterClass' },
         { value: 'Khan Academy', label: 'Khan Academy' },
         { value: 'Duolingo', label: 'Duolingo' },
-        { value: 'Babbel', label: 'Babbel' }
+        { value: 'Babbel', label: 'Babbel' },
       ],
       durations: [
         { value: 'all', label: 'All Durations' },
         { value: '0-20', label: '0-20 hours' },
         { value: '20-40', label: '20-40 hours' },
-        { value: '40+', label: '40+ hours' }
+        { value: '40+', label: '40+ hours' },
       ],
       languages: [
         { value: 'all', label: 'All Languages' },
@@ -70,8 +79,8 @@ export class CoursesAPI {
         { value: 'Spanish', label: 'Spanish' },
         { value: 'French', label: 'French' },
         { value: 'German', label: 'German' },
-        { value: 'Portuguese', label: 'Portuguese' }
-      ]
+        { value: 'Portuguese', label: 'Portuguese' },
+      ],
     };
   }
 
@@ -81,7 +90,7 @@ export class CoursesAPI {
     return {
       success: true,
       message: 'Course files uploaded successfully',
-      courseId: 'uploaded-' + Date.now()
+      courseId: 'uploaded-' + Date.now(),
     };
   }
 
@@ -89,43 +98,54 @@ export class CoursesAPI {
     const response = await fetch('/api/courses/import', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'course', data: formData })
+      body: JSON.stringify({ type: 'course', data: formData }),
     });
-    
+
     if (!response.ok) {
       throw new Error('Failed to import course');
     }
-    
+
     return response.json();
   }
 
-  static async importFromTelegram(formData: ImportCourseData, telegramData: TelegramImportData) {
+  static async importFromTelegram(
+    formData: ImportCourseData,
+    telegramData: TelegramImportData
+  ) {
     const response = await fetch('/api/courses/import', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'telegram', data: telegramData })
+      body: JSON.stringify({ type: 'telegram', data: telegramData }),
     });
-    
+
     if (!response.ok) {
       throw new Error('Failed to import from Telegram');
     }
-    
+
     return response.json();
   }
 
-  static async importFromFolder(_formData: ImportCourseData, folderPath: string, createWeakLink: boolean) {
+  static async importFromFolder(
+    _formData: ImportCourseData,
+    folderPath: string,
+    createWeakLink: boolean
+  ) {
     await delay(1500);
     return {
       success: true,
       message: 'Course imported from folder successfully',
       courseId: 'folder-' + Date.now(),
       folderPath,
-      createWeakLink
+      createWeakLink,
     };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static async updateLessonNotes(_courseId: string, _lessonId: string, _notes: string) {
+  static async updateLessonNotes(
+    _courseId: string,
+    _lessonId: string,
+    _notes: string
+  ) {
     await delay(500);
     return { success: true };
   }

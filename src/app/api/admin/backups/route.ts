@@ -19,7 +19,9 @@ export async function POST(request: Request) {
     const { action, backup } = body;
 
     if (action === 'delete') {
-      adminMockData.backups = adminMockData.backups.filter(b => b.id !== backup.id);
+      adminMockData.backups = adminMockData.backups.filter(
+        (b) => b.id !== backup.id
+      );
       return NextResponse.json({ success: true });
     } else if (action === 'add') {
       const newBackup = { ...backup, id: Date.now().toString() };
@@ -29,6 +31,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid request body' },
+      { status: 400 }
+    );
   }
 }

@@ -32,7 +32,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
         </li>
         {items.map((item, index) => (
           <li key={index} className="breadcrumb-item">
-            <FontAwesomeIcon icon={faChevronRight} className="breadcrumb-separator" />
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              className="breadcrumb-separator"
+            />
             {item.href ? (
               <Link href={item.href} className="breadcrumb-link">
                 {item.label}

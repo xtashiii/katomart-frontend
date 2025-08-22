@@ -22,37 +22,42 @@ export async function POST(request: Request) {
 
   try {
     const credentials: LoginCredentials = await request.json();
-    
+
     const mockUsers = [
       { username: 'admin', password: 'admin123' },
-      { username: 'test', password: 'test123' }
+      { username: 'test', password: 'test123' },
     ];
-    
-    const user = mockUsers.find(u => 
-      u.username === credentials.username && u.password === credentials.password
+
+    const user = mockUsers.find(
+      (u) =>
+        u.username === credentials.username &&
+        u.password === credentials.password
     );
-    
+
     if (user) {
       const userData = {
         id: '1',
         username: user.username,
-        email: `${user.username}@example.com`
+        email: `${user.username}@example.com`,
       };
-      
+
       const response: AuthTokens = {
         token: 'mock-jwt-token-' + Date.now(),
         refreshToken: 'mock-refresh-token-' + Date.now(),
-        user: userData
+        user: userData,
       };
-      
+
       const response_data = NextResponse.json(response);
       response_data.headers.set('Access-Control-Allow-Origin', '*');
-      response_data.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      response_data.headers.set(
+        'Access-Control-Allow-Methods',
+        'POST, OPTIONS'
+      );
       response_data.headers.set('Access-Control-Allow-Headers', 'Content-Type');
       return response_data;
     } else {
       const error_response = NextResponse.json(
-        { error: 'Invalid credentials' }, 
+        { error: 'Invalid credentials' },
         { status: 401 }
       );
       error_response.headers.set('Access-Control-Allow-Origin', '*');
@@ -60,7 +65,7 @@ export async function POST(request: Request) {
     }
   } catch {
     return NextResponse.json(
-      { error: 'Invalid request body' }, 
+      { error: 'Invalid request body' },
       { status: 400 }
     );
   }

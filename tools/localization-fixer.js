@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Katomart Localization Fixer
- * 
+ *
  * A tool to automatically translate and fix localization issues using translation APIs.
  * Usage: node tools/localization-fixer.js [--api=google|libre|deepl] [--api-key=KEY]
  */
@@ -17,20 +17,20 @@ class LocalizationFixer {
     this.files = {
       en: path.join(this.messagesDir, 'en.json'),
       es: path.join(this.messagesDir, 'es.json'),
-      pt: path.join(this.messagesDir, 'pt.json')
+      pt: path.join(this.messagesDir, 'pt.json'),
     };
-    
+
     // Translation API configuration
     this.apiProvider = options.api || 'libre'; // Default to LibreTranslate (free)
     this.apiKey = options.apiKey || process.env.TRANSLATE_API_KEY;
     this.apiUrl = this.getApiUrl();
-    
+
     // Language mappings
     this.languageCodes = {
       es: 'es', // Spanish
-      pt: 'pt'  // Portuguese
+      pt: 'pt', // Portuguese
     };
-    
+
     // Translation cache to avoid redundant API calls
     this.translationCache = new Map();
   }
@@ -53,10 +53,10 @@ class LocalizationFixer {
     return new Promise((resolve, reject) => {
       const isHttps = url.startsWith('https://');
       const client = isHttps ? https : http;
-      
+
       const req = client.request(url, options, (res) => {
         let data = '';
-        res.on('data', chunk => data += chunk);
+        res.on('data', (chunk) => (data += chunk));
         res.on('end', () => {
           try {
             const result = JSON.parse(data);
@@ -68,11 +68,11 @@ class LocalizationFixer {
       });
 
       req.on('error', reject);
-      
+
       if (postData) {
         req.write(postData);
       }
-      
+
       req.end();
     });
   }
@@ -80,7 +80,7 @@ class LocalizationFixer {
   // Translate text using the configured API
   async translateText(text, targetLang) {
     const cacheKey = `${text}:${targetLang}`;
-    
+
     // Check cache first
     if (this.translationCache.has(cacheKey)) {
       return this.translationCache.get(cacheKey);
@@ -88,7 +88,7 @@ class LocalizationFixer {
 
     try {
       let translation;
-      
+
       switch (this.apiProvider) {
         case 'google':
           translation = await this.translateWithGoogle(text, targetLang);
@@ -105,9 +105,10 @@ class LocalizationFixer {
       // Cache the result
       this.translationCache.set(cacheKey, translation);
       return translation;
-      
     } catch (error) {
-      console.warn(`⚠️  Translation failed for "${text}" to ${targetLang}: ${error.message}`);
+      console.warn(
+        `⚠️  Translation failed for "${text}" to ${targetLang}: ${error.message}`
+      );
       return `[TRANSLATE] ${text}`; // Fallback
     }
   }
@@ -123,15 +124,15 @@ class LocalizationFixer {
       q: text,
       source: 'en',
       target: targetLang,
-      format: 'text'
+      format: 'text',
     });
 
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData)
-      }
+        'Content-Length': Buffer.byteLength(postData),
+      },
     };
 
     const result = await this.makeRequest(url, options, postData);
@@ -148,15 +149,15 @@ class LocalizationFixer {
       auth_key: this.apiKey,
       text: text,
       source_lang: 'EN',
-      target_lang: targetLang.toUpperCase()
+      target_lang: targetLang.toUpperCase(),
     }).toString();
 
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(postData)
-      }
+        'Content-Length': Buffer.byteLength(postData),
+      },
     };
 
     const result = await this.makeRequest(this.apiUrl, options, postData);
@@ -169,22 +170,20 @@ class LocalizationFixer {
       q: text,
       source: 'en',
       target: targetLang,
-      format: 'text'
+      format: 'text',
     });
 
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData)
-      }
+        'Content-Length': Buffer.byteLength(postData),
+      },
     };
 
     const result = await this.makeRequest(this.apiUrl, options, postData);
     return result.translatedText;
   }
-
-
 
   // Load a JSON file
   loadFile(lang) {
@@ -235,18 +234,22 @@ class LocalizationFixer {
   // Extract all keys recursively
   extractKeys(obj, prefix = '') {
     const keys = [];
-    
+
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         const fullKey = prefix ? `${prefix}.${key}` : key;
         keys.push(fullKey);
-        
-        if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+
+        if (
+          typeof obj[key] === 'object' &&
+          obj[key] !== null &&
+          !Array.isArray(obj[key])
+        ) {
           keys.push(...this.extractKeys(obj[key], fullKey));
         }
       }
     }
-    
+
     return keys;
   }
 
@@ -254,15 +257,15 @@ class LocalizationFixer {
   findMissingKeys(enData, targetData) {
     const enKeys = new Set(this.extractKeys(enData));
     const targetKeys = new Set(this.extractKeys(targetData));
-    
-    return Array.from(enKeys).filter(key => !targetKeys.has(key));
+
+    return Array.from(enKeys).filter((key) => !targetKeys.has(key));
   }
 
   // Fix all localization files using translation API
   async fix() {
     console.log('🔧 Katomart Localization Fixer (AI-Powered)\n');
     console.log(`Using ${this.apiProvider.toUpperCase()} translation API\n`);
-    
+
     // Load all files
     const data = {};
     for (const lang of ['en', 'es', 'pt']) {
@@ -279,41 +282,53 @@ class LocalizationFixer {
     // Process each target language
     for (const targetLang of ['es', 'pt']) {
       console.log(`🌐 Processing ${targetLang.toUpperCase()}...`);
-      
+
       const missingKeys = this.findMissingKeys(enData, data[targetLang]);
-      
+
       if (missingKeys.length === 0) {
         console.log(`✅ ${targetLang.toUpperCase()}: No missing keys`);
         continue;
       }
 
-      console.log(`📝 Found ${missingKeys.length} missing keys in ${targetLang.toUpperCase()}`);
-      
+      console.log(
+        `📝 Found ${missingKeys.length} missing keys in ${targetLang.toUpperCase()}`
+      );
+
       // Translate missing keys
       for (const keyPath of missingKeys) {
         const englishValue = this.getValueByPath(enData, keyPath);
-        
+
         if (englishValue && typeof englishValue === 'string') {
           try {
             console.log(`🔄 Translating: "${englishValue}"`);
-            const translation = await this.translateText(englishValue, this.languageCodes[targetLang]);
-            
+            const translation = await this.translateText(
+              englishValue,
+              this.languageCodes[targetLang]
+            );
+
             this.setValueByPath(data[targetLang], keyPath, translation);
-            console.log(`✅ Added to ${targetLang.toUpperCase()}: ${keyPath} = "${translation}"`);
+            console.log(
+              `✅ Added to ${targetLang.toUpperCase()}: ${keyPath} = "${translation}"`
+            );
             totalAdded++;
-            
+
             // Small delay to be respectful to the API
-            await new Promise(resolve => setTimeout(resolve, 100));
-            
+            await new Promise((resolve) => setTimeout(resolve, 100));
           } catch (error) {
-            console.error(`❌ Failed to translate ${keyPath}: ${error.message}`);
+            console.error(
+              `❌ Failed to translate ${keyPath}: ${error.message}`
+            );
             // Use fallback
-            this.setValueByPath(data[targetLang], keyPath, `[TRANSLATE] ${englishValue}`);
+            this.setValueByPath(
+              data[targetLang],
+              keyPath,
+              `[TRANSLATE] ${englishValue}`
+            );
             totalAdded++;
           }
         }
       }
-      
+
       console.log(); // Empty line for readability
     }
 
@@ -328,21 +343,27 @@ class LocalizationFixer {
       if (this.findMissingKeys(enData, data[lang]).length === 0) {
         continue; // Skip if no changes
       }
-      
+
       if (!this.saveFile(lang, data[lang])) {
         allSaved = false;
       }
     }
 
     if (allSaved) {
-      console.log(`🎉 Successfully translated and added ${totalAdded} missing keys!`);
+      console.log(
+        `🎉 Successfully translated and added ${totalAdded} missing keys!`
+      );
       console.log('✅ All localization files are now consistent.');
-      
+
       if (this.translationCache.size > 0) {
-        console.log(`💾 Cached ${this.translationCache.size} translations for future use.`);
+        console.log(
+          `💾 Cached ${this.translationCache.size} translations for future use.`
+        );
       }
     } else {
-      console.log('\n❌ Some files failed to save. Please check the errors above.');
+      console.log(
+        '\n❌ Some files failed to save. Please check the errors above.'
+      );
     }
 
     return allSaved;
@@ -386,7 +407,7 @@ Examples:
 
   // Parse command line arguments
   const options = {};
-  
+
   for (const arg of args) {
     if (arg.startsWith('--api=')) {
       options.api = arg.split('=')[1];
@@ -396,13 +417,14 @@ Examples:
   }
 
   const fixer = new LocalizationFixer(options);
-  
+
   // Run the fixer (async)
-  fixer.fix()
-    .then(success => {
+  fixer
+    .fix()
+    .then((success) => {
       process.exit(success ? 0 : 1);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('❌ Unexpected error:', error.message);
       process.exit(1);
     });

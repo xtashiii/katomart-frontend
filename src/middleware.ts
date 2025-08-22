@@ -4,12 +4,10 @@ export default createMiddleware({
   locales: ['en', 'es', 'pt'],
 
   defaultLocale: 'en',
-  
-  localePrefix: 'always'
+
+  localePrefix: 'always',
 });
 
 export const config = {
-  matcher: [
-    '/((?!api|_next|_vercel|.*\\..*).*)'
-  ]
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

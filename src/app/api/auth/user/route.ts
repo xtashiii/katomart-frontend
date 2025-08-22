@@ -7,14 +7,14 @@ export async function GET(request: Request) {
 
   const authHeader = request.headers.get('authorization');
   const token = authHeader?.replace('Bearer ', '');
-  
+
   if (token && token.startsWith('mock-jwt-token-')) {
     // In a real implementation, you would decode the token to get user info
     // For mock, we'll return a default user
     return NextResponse.json({
       id: '1',
       username: 'testuser',
-      email: 'testuser@example.com'
+      email: 'testuser@example.com',
     });
   } else {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

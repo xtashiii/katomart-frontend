@@ -32,7 +32,7 @@ export default function CognitahzPage() {
   const [availablePlatforms, setAvailablePlatforms] = useState<string[]>([]);
   const [availableLanguages, setAvailableLanguages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { isLoggedIn, logout, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const t = useTranslations('cognitahz');
@@ -43,41 +43,51 @@ export default function CognitahzPage() {
   const loadFilterOptions = async () => {
     try {
       const filterOptions = await CoursesAPI.getFilterOptions();
-      setAvailableCategories(filterOptions.categories.map(c => c.value));
-      setAvailablePlatforms(filterOptions.platforms.map(p => p.value));
-      setAvailableLanguages(filterOptions.languages.map(l => l.value));
+      setAvailableCategories(filterOptions.categories.map((c) => c.value));
+      setAvailablePlatforms(filterOptions.platforms.map((p) => p.value));
+      setAvailableLanguages(filterOptions.languages.map((l) => l.value));
     } catch (err) {
       console.error('Failed to load filter options:', err);
     }
   };
 
-  const loadCourses = useCallback(async (
-    page = 1, 
-    search = searchQuery, 
-    category = selectedCategory,
-    platform = selectedPlatform,
-    duration = selectedDuration
-  ) => {
-    setLoadingCourses(true);
-    setError(null);
-    
-    try {
-      const data = await CoursesAPI.getCourses({
-        page,
-        limit: coursesPerPage,
-        search,
-        category,
-        platform,
-        durationRange: duration
-      });
-      setCoursesData(data);
-    } catch (err) {
-      setError(t('courses.error'));
-      console.error('Failed to load courses:', err);
-    } finally {
-      setLoadingCourses(false);
-    }
-  }, [searchQuery, selectedCategory, selectedPlatform, selectedDuration, coursesPerPage, t]);
+  const loadCourses = useCallback(
+    async (
+      page = 1,
+      search = searchQuery,
+      category = selectedCategory,
+      platform = selectedPlatform,
+      duration = selectedDuration
+    ) => {
+      setLoadingCourses(true);
+      setError(null);
+
+      try {
+        const data = await CoursesAPI.getCourses({
+          page,
+          limit: coursesPerPage,
+          search,
+          category,
+          platform,
+          durationRange: duration,
+        });
+        setCoursesData(data);
+      } catch (err) {
+        setError(t('courses.error'));
+        console.error('Failed to load courses:', err);
+      } finally {
+        setLoadingCourses(false);
+      }
+    },
+    [
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration,
+      coursesPerPage,
+      t,
+    ]
+  );
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -132,37 +142,75 @@ export default function CognitahzPage() {
   const handleFileSizeChange = (fileSize: string) => {
     setSelectedFileSize(fileSize);
     setCurrentPage(1);
-    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+    loadCourses(
+      1,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
   };
 
   const handleDownloadStatusChange = (status: string) => {
     setSelectedDownloadStatus(status);
     setCurrentPage(1);
-    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+    loadCourses(
+      1,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
   };
 
   const handleLastUpdatedChange = (lastUpdated: string) => {
     setSelectedLastUpdated(lastUpdated);
     setCurrentPage(1);
-    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+    loadCourses(
+      1,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
   };
 
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
     setCurrentPage(1);
-    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+    loadCourses(
+      1,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
   };
 
   const handleProgressChange = (progress: string) => {
     setSelectedProgress(progress);
     setCurrentPage(1);
-    loadCourses(1, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
+    loadCourses(
+      1,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    loadCourses(page, searchQuery, selectedCategory, selectedPlatform, selectedDuration);
-    document.querySelector('.courses-section')?.scrollIntoView({ behavior: 'smooth' });
+    loadCourses(
+      page,
+      searchQuery,
+      selectedCategory,
+      selectedPlatform,
+      selectedDuration
+    );
+    document
+      .querySelector('.courses-section')
+      ?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleCourseClick = (course: Course) => {
@@ -178,7 +226,10 @@ export default function CognitahzPage() {
       <div>
         <Header />
         <main className="main-content">
-          <div className="content-wrapper" style={{ textAlign: 'center', padding: '2rem' }}>
+          <div
+            className="content-wrapper"
+            style={{ textAlign: 'center', padding: '2rem' }}
+          >
             <div className="loading-spinner">{tGeneral('loading')}</div>
           </div>
         </main>
@@ -188,14 +239,14 @@ export default function CognitahzPage() {
 
   const getPaginationText = () => {
     if (!coursesData) return '';
-    
+
     const start = (currentPage - 1) * coursesPerPage + 1;
     const end = Math.min(currentPage * coursesPerPage, coursesData.total);
-    
+
     return t('pagination.showing', {
       start,
       end,
-      total: coursesData.total
+      total: coursesData.total,
     });
   };
 
@@ -220,7 +271,7 @@ export default function CognitahzPage() {
                 value={searchQuery}
               />
             </div>
-            
+
             <div className="filter-section">
               <FilterBar
                 selectedCategory={selectedCategory}
@@ -278,9 +329,9 @@ export default function CognitahzPage() {
                 <div className="courses-grid">
                   {/* Import Course Card (always first) */}
                   <ImportCourseCard onClick={handleImportCourse} />
-                  
+
                   {/* Course Cards */}
-                  {coursesData.courses.map(course => (
+                  {coursesData.courses.map((course) => (
                     <CourseCard
                       key={course.id}
                       course={course}

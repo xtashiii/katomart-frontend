@@ -5,7 +5,7 @@ export async function POST() {
     return new Response('Not found', { status: 404 });
   }
 
-  return NextResponse.json({ 
-    token: 'mock-jwt-token-refreshed-' + Date.now() 
+  return NextResponse.json({
+    token: 'mock-jwt-token-refreshed-' + Date.now(),
   });
 }

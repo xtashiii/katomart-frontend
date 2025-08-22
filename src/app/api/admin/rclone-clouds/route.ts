@@ -19,7 +19,9 @@ export async function POST(request: Request) {
     const { action, cloud } = body;
 
     if (action === 'delete') {
-      adminMockData.rcloneClouds = adminMockData.rcloneClouds.filter(c => c.id !== cloud.id);
+      adminMockData.rcloneClouds = adminMockData.rcloneClouds.filter(
+        (c) => c.id !== cloud.id
+      );
       return NextResponse.json({ success: true });
     } else if (action === 'add') {
       const newCloud = { ...cloud, id: Date.now().toString() };
@@ -29,6 +31,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid request body' },
+      { status: 400 }
+    );
   }
 }

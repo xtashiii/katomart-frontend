@@ -2,7 +2,12 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faPlay, faStop, faCog } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDownload,
+  faPlay,
+  faStop,
+  faCog,
+} from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -15,13 +20,13 @@ export default function ScrappersPage() {
   const locale = params.locale as string;
 
   const breadcrumbItems = [
-    { 
-      label: t('breadcrumb.documentation'), 
-      href: `/${locale}/documentation` 
+    {
+      label: t('breadcrumb.documentation'),
+      href: `/${locale}/documentation`,
     },
-    { 
-      label: tSections('scrappers.title')
-    }
+    {
+      label: tSections('scrappers.title'),
+    },
   ];
 
   return (
@@ -32,8 +37,12 @@ export default function ScrappersPage() {
           <div className="hero-icon">
             <FontAwesomeIcon icon={faDownload} />
           </div>
-          <h1 className="documentation-title">{tSections('scrappers.title')}</h1>
-          <p className="documentation-subtitle">{tSections('scrappers.description')}</p>
+          <h1 className="documentation-title">
+            {tSections('scrappers.title')}
+          </h1>
+          <p className="documentation-subtitle">
+            {tSections('scrappers.description')}
+          </p>
         </div>
       </div>
 
@@ -48,15 +57,21 @@ export default function ScrappersPage() {
           <div className="requirements-list">
             <div className="requirement-item">
               <FontAwesomeIcon icon={faPlay} className="requirement-icon" />
-              <span className="requirement-text">Configure your target sources and data extraction rules</span>
+              <span className="requirement-text">
+                Configure your target sources and data extraction rules
+              </span>
             </div>
             <div className="requirement-item">
               <FontAwesomeIcon icon={faCog} className="requirement-icon" />
-              <span className="requirement-text">Set up scheduling and automation preferences</span>
+              <span className="requirement-text">
+                Set up scheduling and automation preferences
+              </span>
             </div>
             <div className="requirement-item">
               <FontAwesomeIcon icon={faStop} className="requirement-icon" />
-              <span className="requirement-text">Monitor and manage active scraping tasks</span>
+              <span className="requirement-text">
+                Monitor and manage active scraping tasks
+              </span>
             </div>
           </div>
         </div>
@@ -65,7 +80,8 @@ export default function ScrappersPage() {
           <div className="next-steps-card">
             <h2 className="next-steps-title">Ready to configure scrappers?</h2>
             <p className="next-steps-description">
-              Access the scrappers panel to set up your content extraction workflows.
+              Access the scrappers panel to set up your content extraction
+              workflows.
             </p>
             <Link href={`/${locale}/scrappers`} className="next-steps-button">
               <FontAwesomeIcon icon={faDownload} />

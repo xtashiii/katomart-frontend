@@ -3,12 +3,17 @@
 import Header from '@/components/Header';
 import AppButton from '@/components/AppButton';
 import InfoBox from '@/components/InfoBox';
-import { faCog, faDownload, faBrain, faSave } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCog,
+  faDownload,
+  faBrain,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
   const t = useTranslations('buttons');
-  
+
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Header />
@@ -59,7 +64,7 @@ export default function Home() {
           <InfoBox />
         </div>
       </main>
-  {/* Footer is included in the layout, do not render here */}
+      {/* Footer is included in the layout, do not render here */}
     </div>
   );
 }

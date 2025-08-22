@@ -17,10 +17,10 @@ interface AppButtonProps {
   disabled?: boolean;
 }
 
-const AppButton: React.FC<AppButtonProps> = ({ 
-  icon, 
-  href, 
-  children, 
+const AppButton: React.FC<AppButtonProps> = ({
+  icon,
+  href,
+  children,
   requiresAuth = true,
   onClick,
   disabled,
@@ -34,9 +34,9 @@ const AppButton: React.FC<AppButtonProps> = ({
       onClick(e);
       return;
     }
-    
+
     e.preventDefault();
-    
+
     if (!href) return;
 
     if (!requiresAuth || href.includes('/documentation')) {
@@ -63,16 +63,12 @@ const AppButton: React.FC<AppButtonProps> = ({
 
   return (
     <>
-      <button 
-        onClick={handleClick} 
-        className="app-button"
-        disabled={disabled}
-      >
+      <button onClick={handleClick} className="app-button" disabled={disabled}>
         {icon && <FontAwesomeIcon icon={icon} />}
         {children}
       </button>
-      
-      <LoginModal 
+
+      <LoginModal
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onSuccess={handleLoginSuccess}

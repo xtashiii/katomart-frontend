@@ -7,7 +7,7 @@ export async function GET(request: Request) {
 
   const authHeader = request.headers.get('authorization');
   const token = authHeader?.replace('Bearer ', '');
-  
+
   if (token && token.startsWith('mock-jwt-token-')) {
     return NextResponse.json({ valid: true });
   } else {

@@ -18,25 +18,28 @@ export default function CoursePage() {
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const { isLoggedIn, logout, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const params = useParams();
   const t = useTranslations('course');
-  
+
   const courseId = params.courseId as string;
 
   const loadCourse = useCallback(async () => {
     if (!courseId) return;
-    
+
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const courseData = await CoursesAPI.getDetailedCourse(courseId);
       if (courseData) {
         setCourse(courseData);
-        if (courseData.modules.length > 0 && courseData.modules[0].lessons.length > 0) {
+        if (
+          courseData.modules.length > 0 &&
+          courseData.modules[0].lessons.length > 0
+        ) {
           setSelectedLesson(courseData.modules[0].lessons[0]);
         }
       } else {
@@ -118,12 +121,12 @@ export default function CoursePage() {
 
   const handleNotesUpdate = async (lessonId: string, notes: string) => {
     if (!course) return;
-    
+
     try {
       await CoursesAPI.updateLessonNotes(course.id, lessonId, notes);
       const updatedCourse = { ...course };
       for (const courseModule of updatedCourse.modules) {
-        const lesson = courseModule.lessons.find(l => l.id === lessonId);
+        const lesson = courseModule.lessons.find((l) => l.id === lessonId);
         if (lesson) {
           lesson.notes = notes;
           break;
@@ -140,7 +143,7 @@ export default function CoursePage() {
 
   const handleLessonComplete = async (lessonId: string) => {
     if (!course) return;
-    
+
     try {
       await CoursesAPI.markLessonCompleted(course.id, lessonId);
       await loadCourse();
@@ -151,17 +154,36 @@ export default function CoursePage() {
 
   const handleLessonRate = async (lessonId: string, rating: number) => {
     if (!course) return;
-    
+
     try {
-      if ('rateLessonContent' in CoursesAPI && typeof (CoursesAPI as { rateLessonContent?: (courseId: string, lessonId: string, rating: number) => Promise<void> }).rateLessonContent === 'function') {
-        await (CoursesAPI as { rateLessonContent: (courseId: string, lessonId: string, rating: number) => Promise<void> }).rateLessonContent(course.id, lessonId, rating);
+      if (
+        'rateLessonContent' in CoursesAPI &&
+        typeof (
+          CoursesAPI as {
+            rateLessonContent?: (
+              courseId: string,
+              lessonId: string,
+              rating: number
+            ) => Promise<void>;
+          }
+        ).rateLessonContent === 'function'
+      ) {
+        await (
+          CoursesAPI as {
+            rateLessonContent: (
+              courseId: string,
+              lessonId: string,
+              rating: number
+            ) => Promise<void>;
+          }
+        ).rateLessonContent(course.id, lessonId, rating);
       } else {
         console.log('Rating lesson:', lessonId, 'with rating:', rating);
       }
-      
+
       const updatedCourse = { ...course };
       for (const courseModule of updatedCourse.modules) {
-        const lesson = courseModule.lessons.find(l => l.id === lessonId);
+        const lesson = courseModule.lessons.find((l) => l.id === lessonId);
         if (lesson) {
           lesson.userRating = rating;
           break;
@@ -178,18 +200,37 @@ export default function CoursePage() {
 
   const handleMarkersUpdate = async (lessonId: string, markers: unknown[]) => {
     if (!course) return;
-    
+
     try {
-      if ('updateLessonMarkers' in CoursesAPI && typeof (CoursesAPI as { updateLessonMarkers?: (courseId: string, lessonId: string, markers: unknown[]) => Promise<void> }).updateLessonMarkers === 'function') {
-        await (CoursesAPI as { updateLessonMarkers: (courseId: string, lessonId: string, markers: unknown[]) => Promise<void> }).updateLessonMarkers(course.id, lessonId, markers);
+      if (
+        'updateLessonMarkers' in CoursesAPI &&
+        typeof (
+          CoursesAPI as {
+            updateLessonMarkers?: (
+              courseId: string,
+              lessonId: string,
+              markers: unknown[]
+            ) => Promise<void>;
+          }
+        ).updateLessonMarkers === 'function'
+      ) {
+        await (
+          CoursesAPI as {
+            updateLessonMarkers: (
+              courseId: string,
+              lessonId: string,
+              markers: unknown[]
+            ) => Promise<void>;
+          }
+        ).updateLessonMarkers(course.id, lessonId, markers);
       } else {
         // For now, just update local state until API method is implemented
         console.log('Updating markers for lesson:', lessonId, markers);
       }
-      
+
       const updatedCourse = { ...course };
       for (const courseModule of updatedCourse.modules) {
-        const lesson = courseModule.lessons.find(l => l.id === lessonId);
+        const lesson = courseModule.lessons.find((l) => l.id === lessonId);
         if (lesson) {
           (lesson as { videoMarkers?: unknown[] }).videoMarkers = markers;
           break;
@@ -197,7 +238,10 @@ export default function CoursePage() {
       }
       setCourse(updatedCourse);
       if (selectedLesson && selectedLesson.id === lessonId) {
-        setSelectedLesson({ ...selectedLesson, videoMarkers: markers } as Lesson & { videoMarkers?: unknown[] });
+        setSelectedLesson({
+          ...selectedLesson,
+          videoMarkers: markers,
+        } as Lesson & { videoMarkers?: unknown[] });
       }
     } catch (err) {
       console.error('Failed to update markers:', err);
@@ -257,24 +301,24 @@ export default function CoursePage() {
   return (
     <div className="course-page">
       <Header />
-      
+
       {/* Mobile sidebar toggle - only show on mobile */}
       {isMobile && (
         <button className="sidebar-toggle" onClick={toggleSidebar}>
           <i className="fas fa-bars"></i>
         </button>
       )}
-      
+
       {/* Mobile sidebar overlay - only show on mobile */}
       {isMobile && (
-        <div 
+        <div
           className={`sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
           onClick={closeSidebar}
         ></div>
       )}
-      
+
       <main className="course-main">
-        <CourseTreeSidebar 
+        <CourseTreeSidebar
           course={course}
           selectedLesson={selectedLesson}
           onLessonSelect={(lesson: Lesson) => {
@@ -287,7 +331,7 @@ export default function CoursePage() {
           onToggleCompletion={handleLessonComplete}
           className={`${isMobile && !sidebarOpen ? 'mobile-hidden' : ''}`}
         />
-        <CourseContent 
+        <CourseContent
           course={course}
           selectedLesson={selectedLesson}
           onNotesUpdate={handleNotesUpdate}

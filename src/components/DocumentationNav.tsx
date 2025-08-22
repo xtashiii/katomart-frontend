@@ -3,15 +3,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { 
-  faCog, 
-  faDownload, 
-  faBrain, 
-  faSave, 
+import {
+  faCog,
+  faDownload,
+  faBrain,
+  faSave,
   faRocket,
   faUsers,
   faWrench,
-  faChartLine
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -34,7 +34,7 @@ const DocumentationNav: React.FC = () => {
     {
       href: `/${locale}/documentation/getting-started`,
       label: t('gettingStarted.title'),
-      icon: faRocket
+      icon: faRocket,
     },
     {
       href: `/${locale}/documentation/admin-panel`,
@@ -44,35 +44,35 @@ const DocumentationNav: React.FC = () => {
         {
           href: `/${locale}/documentation/admin-panel/user-management`,
           label: t('adminPanel.userManagement'),
-          icon: faUsers
+          icon: faUsers,
         },
         {
           href: `/${locale}/documentation/admin-panel/system-settings`,
           label: t('adminPanel.systemSettings'),
-          icon: faWrench
+          icon: faWrench,
         },
         {
           href: `/${locale}/documentation/admin-panel/monitoring`,
           label: t('adminPanel.monitoring'),
-          icon: faChartLine
-        }
-      ]
+          icon: faChartLine,
+        },
+      ],
     },
     {
       href: `/${locale}/documentation/scrappers`,
       label: t('scrappers.title'),
-      icon: faDownload
+      icon: faDownload,
     },
     {
       href: `/${locale}/documentation/cognitahz`,
       label: t('cognitahz.title'),
-      icon: faBrain
+      icon: faBrain,
     },
     {
       href: `/${locale}/documentation/backups`,
       label: t('backups.title'),
-      icon: faSave
-    }
+      icon: faSave,
+    },
   ];
 
   const isActiveLink = (href: string) => {
@@ -82,7 +82,7 @@ const DocumentationNav: React.FC = () => {
   const isParentActive = (item: NavItem) => {
     if (isActiveLink(item.href)) return true;
     if (item.children) {
-      return item.children.some(child => isActiveLink(child.href));
+      return item.children.some((child) => isActiveLink(child.href));
     }
     return false;
   };
@@ -90,11 +90,11 @@ const DocumentationNav: React.FC = () => {
   const renderNavItem = (item: NavItem, level: number = 0) => {
     const isActive = isActiveLink(item.href);
     const isParent = isParentActive(item);
-    
+
     return (
       <li key={item.href} className={`nav-item nav-item-level-${level}`}>
-        <Link 
-          href={item.href} 
+        <Link
+          href={item.href}
           className={`nav-link ${isActive ? 'nav-link-active' : ''} ${isParent ? 'nav-link-parent-active' : ''}`}
         >
           <FontAwesomeIcon icon={item.icon} className="nav-icon" />
@@ -102,7 +102,7 @@ const DocumentationNav: React.FC = () => {
         </Link>
         {item.children && isParent && (
           <ul className="nav-submenu">
-            {item.children.map(child => renderNavItem(child, level + 1))}
+            {item.children.map((child) => renderNavItem(child, level + 1))}
           </ul>
         )}
       </li>
@@ -112,7 +112,7 @@ const DocumentationNav: React.FC = () => {
   return (
     <nav className="documentation-nav" aria-label="Documentation navigation">
       <ul className="nav-list">
-        {navItems.map(item => renderNavItem(item))}
+        {navItems.map((item) => renderNavItem(item))}
       </ul>
     </nav>
   );

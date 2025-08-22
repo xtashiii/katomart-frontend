@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
   { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'pt', name: 'Português', flag: '🇧🇷' }
+  { code: 'pt', name: 'Português', flag: '🇧🇷' },
 ];
 
 const LanguageSwitcher = () => {
@@ -14,10 +14,13 @@ const LanguageSwitcher = () => {
   const pathname = usePathname();
   const localeFromHook = useLocale();
 
-  const pathSegments = pathname.split('/').filter((segment: string) => Boolean(segment));
-  const localeFromPath = pathSegments.find((segment: string) => 
-    ['en', 'es', 'pt'].includes(segment)
-  ) || 'en';
+  const pathSegments = pathname
+    .split('/')
+    .filter((segment: string) => Boolean(segment));
+  const localeFromPath =
+    pathSegments.find((segment: string) =>
+      ['en', 'es', 'pt'].includes(segment)
+    ) || 'en';
 
   const currentLocale = localeFromPath || localeFromHook;
 
@@ -25,7 +28,9 @@ const LanguageSwitcher = () => {
     if (newLocale === currentLocale) {
       return;
     }
-    const segments = pathname.split('/').filter((segment: string) => Boolean(segment));
+    const segments = pathname
+      .split('/')
+      .filter((segment: string) => Boolean(segment));
     if (['en', 'es', 'pt'].includes(segments[0])) {
       segments[0] = newLocale;
     } else {
@@ -37,8 +42,8 @@ const LanguageSwitcher = () => {
 
   return (
     <div className="header-lang-select">
-      <select 
-        value={currentLocale} 
+      <select
+        value={currentLocale}
         onChange={(e) => handleLanguageChange(e.target.value)}
       >
         {languages.map((lang) => (
