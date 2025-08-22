@@ -36,6 +36,7 @@ O vídeo de apresentação acima oferece uma visão detalhada da plataforma, dem
 * **Divulgação e Redistribuição:**
     * Você pode criar vídeos de divulgação do aplicativo, desde que utilize os links oficiais de download (GitHub/Telegram).
     * É **proibido redistribuir o aplicativo**, a menos que você crie um FORK, faça modificações significativas (implemente funcionalidades) e mantenha seu repositório como código aberto, com uma descrição clara das alterações.
+    * É **expressamente proibido** incluir o aplicativo em "pack de script", independente de como seja feito.
     * É **proibido remover as atribuições e marcas do meu perfil** no aplicativo, independentemente de qualquer alteração.
 * **Afiliação:** O projeto Katomart não possui afiliação, endosso e nem endossa nenhuma das marcas ou plataformas mencionadas.
 
