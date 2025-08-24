@@ -6,9 +6,10 @@ export const platformBooks: Record<string, Book[]> = {
       id: 'zlib-1',
       title: 'The Art of Computer Programming',
       author: 'Donald E. Knuth',
-      description: 'A comprehensive multi-volume work on computer programming and algorithms.',
+      description:
+        'A comprehensive multi-volume work on computer programming and algorithms.',
       genre: 'Computer Science',
-      publishedYear: 1968
+      publishedYear: 1968,
     },
     {
       id: 'zlib-2',
@@ -16,15 +17,15 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Robert C. Martin',
       description: 'A handbook of agile software craftsmanship.',
       genre: 'Software Engineering',
-      publishedYear: 2008
+      publishedYear: 2008,
     },
     {
       id: 'zlib-3',
       title: 'Sapiens: A Brief History of Humankind',
       author: 'Yuval Noah Harari',
-      description: 'A narrative of humanity\'s creation and evolution.',
+      description: "A narrative of humanity's creation and evolution.",
       genre: 'History',
-      publishedYear: 2011
+      publishedYear: 2011,
     },
     {
       id: 'zlib-4',
@@ -32,17 +33,18 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'George Orwell',
       description: 'A dystopian social science fiction novel.',
       genre: 'Fiction',
-      publishedYear: 1949
-    }
+      publishedYear: 1949,
+    },
   ],
-  'libgen': [
+  libgen: [
     {
       id: 'libgen-1',
       title: 'Introduction to Algorithms',
       author: 'Thomas H. Cormen',
-      description: 'A comprehensive introduction to algorithms and data structures.',
+      description:
+        'A comprehensive introduction to algorithms and data structures.',
       genre: 'Computer Science',
-      publishedYear: 2009
+      publishedYear: 2009,
     },
     {
       id: 'libgen-2',
@@ -50,7 +52,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Stuart Russell',
       description: 'The leading textbook in Artificial Intelligence.',
       genre: 'AI & Machine Learning',
-      publishedYear: 2020
+      publishedYear: 2020,
     },
     {
       id: 'libgen-3',
@@ -58,7 +60,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Trevor Hastie',
       description: 'Data mining, inference, and prediction.',
       genre: 'Statistics',
-      publishedYear: 2009
+      publishedYear: 2009,
     },
     {
       id: 'libgen-4',
@@ -66,33 +68,34 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Sheldon Axler',
       description: 'An undergraduate textbook on linear algebra.',
       genre: 'Mathematics',
-      publishedYear: 2015
-    }
+      publishedYear: 2015,
+    },
   ],
   'anna-archive': [
     {
       id: 'anna-1',
       title: 'The Cathedral and the Bazaar',
       author: 'Eric S. Raymond',
-      description: 'Musings on Linux and Open Source by an accidental revolutionary.',
+      description:
+        'Musings on Linux and Open Source by an accidental revolutionary.',
       genre: 'Open Source',
-      publishedYear: 1999
+      publishedYear: 1999,
     },
     {
       id: 'anna-2',
       title: 'Free as in Freedom',
       author: 'Sam Williams',
-      description: 'Richard Stallman\'s crusade for free software.',
+      description: "Richard Stallman's crusade for free software.",
       genre: 'Biography',
-      publishedYear: 2002
+      publishedYear: 2002,
     },
     {
       id: 'anna-3',
-      title: 'The Cuckoo\'s Egg',
+      title: "The Cuckoo's Egg",
       author: 'Cliff Stoll',
       description: 'A true story of international computer espionage.',
       genre: 'Cybersecurity',
-      publishedYear: 1989
+      publishedYear: 1989,
     },
     {
       id: 'anna-4',
@@ -100,17 +103,18 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Steven Levy',
       description: 'The history of the computer revolution.',
       genre: 'Technology History',
-      publishedYear: 1984
-    }
+      publishedYear: 1984,
+    },
   ],
-  'scribd': [
+  scribd: [
     {
       id: 'scribd-1',
       title: 'Atomic Habits',
       author: 'James Clear',
-      description: 'An easy & proven way to build good habits & break bad ones.',
+      description:
+        'An easy & proven way to build good habits & break bad ones.',
       genre: 'Self-Help',
-      publishedYear: 2018
+      publishedYear: 2018,
     },
     {
       id: 'scribd-2',
@@ -118,7 +122,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Stephen Covey',
       description: 'Powerful lessons in personal change.',
       genre: 'Business',
-      publishedYear: 1989
+      publishedYear: 1989,
     },
     {
       id: 'scribd-3',
@@ -126,25 +130,25 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Daniel Kahneman',
       description: 'A groundbreaking tour of the mind.',
       genre: 'Psychology',
-      publishedYear: 2011
+      publishedYear: 2011,
     },
     {
       id: 'scribd-4',
       title: 'The Lean Startup',
       author: 'Eric Ries',
-      description: 'How today\'s entrepreneurs use continuous innovation.',
+      description: "How today's entrepreneurs use continuous innovation.",
       genre: 'Entrepreneurship',
-      publishedYear: 2011
-    }
+      publishedYear: 2011,
+    },
   ],
-  'academia': [
+  academia: [
     {
       id: 'academia-1',
       title: 'The Structure of Scientific Revolutions',
       author: 'Thomas Kuhn',
       description: 'A landmark in intellectual history.',
       genre: 'Philosophy of Science',
-      publishedYear: 1962
+      publishedYear: 1962,
     },
     {
       id: 'academia-2',
@@ -152,7 +156,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Charles Darwin',
       description: 'The foundation of evolutionary biology.',
       genre: 'Biology',
-      publishedYear: 1859
+      publishedYear: 1859,
     },
     {
       id: 'academia-3',
@@ -160,25 +164,26 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'John Rawls',
       description: 'A work of political philosophy and ethics.',
       genre: 'Philosophy',
-      publishedYear: 1971
+      publishedYear: 1971,
     },
     {
       id: 'academia-4',
       title: 'The Wealth of Nations',
       author: 'Adam Smith',
-      description: 'An inquiry into the nature and causes of the wealth of nations.',
+      description:
+        'An inquiry into the nature and causes of the wealth of nations.',
       genre: 'Economics',
-      publishedYear: 1776
-    }
+      publishedYear: 1776,
+    },
   ],
-  'jstor': [
+  jstor: [
     {
       id: 'jstor-1',
       title: 'The American Economic Review',
       author: 'Various Authors',
       description: 'Leading academic journal in economics.',
       genre: 'Economics Journal',
-      publishedYear: 2023
+      publishedYear: 2023,
     },
     {
       id: 'jstor-2',
@@ -186,7 +191,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Various Authors',
       description: 'Academic journal focusing on economic research.',
       genre: 'Economics Journal',
-      publishedYear: 2023
+      publishedYear: 2023,
     },
     {
       id: 'jstor-3',
@@ -194,7 +199,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Various Authors',
       description: 'The oldest professional journal of economics.',
       genre: 'Economics Journal',
-      publishedYear: 2023
+      publishedYear: 2023,
     },
     {
       id: 'jstor-4',
@@ -202,7 +207,7 @@ export const platformBooks: Record<string, Book[]> = {
       author: 'Various Authors',
       description: 'Premier journal of political science.',
       genre: 'Political Science Journal',
-      publishedYear: 2023
-    }
-  ]
+      publishedYear: 2023,
+    },
+  ],
 };

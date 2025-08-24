@@ -1,21 +1,21 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
 import { AuthProvider } from '@/contexts/AuthContext';
 import Footer from '@/components/Footer';
-import "../globals.css";
+import '../globals.css';
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["400", "500", "700", "900"],
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '700', '900'],
 });
 
 export const metadata: Metadata = {
-  title: "Katomart",
-  description: "Katomart - Seu aplicativo para aprendizado digital",
+  title: 'Katomart',
+  description: 'Katomart - Seu aplicativo para aprendizado digital',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
@@ -27,8 +27,16 @@ export const metadata: Metadata = {
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      {
+        url: '/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
     ],
     shortcut: '/favicon.ico',
   },
@@ -37,7 +45,7 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -49,10 +57,14 @@ export default async function LocaleLayout({
       <body className={`${inter.variable} antialiased font-sans`}>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ flex: 1 }}>
-                {children}
-              </div>
+            <div
+              style={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <div style={{ flex: 1 }}>{children}</div>
               <Footer />
             </div>
           </AuthProvider>

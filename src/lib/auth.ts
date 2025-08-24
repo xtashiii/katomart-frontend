@@ -14,7 +14,9 @@ export interface User {
   email?: string;
 }
 
-export const login = async (credentials: LoginCredentials): Promise<AuthTokens> => {
+export const login = async (
+  credentials: LoginCredentials
+): Promise<AuthTokens> => {
   try {
     const response = await fetch('/api/auth/login', {
       method: 'POST',
@@ -23,21 +25,21 @@ export const login = async (credentials: LoginCredentials): Promise<AuthTokens> 
       },
       body: JSON.stringify(credentials),
     });
-    
+
     if (!response.ok) {
       if (response.status === 401) {
         throw new Error('Invalid credentials');
       }
       throw new Error('Network error');
     }
-    
+
     const data = await response.json();
     const { token, refreshToken, user } = data;
-    
+
     localStorage.setItem('auth_token', token);
     localStorage.setItem('refresh_token', refreshToken);
     localStorage.setItem('current_user', JSON.stringify(user));
-    
+
     return { token, refreshToken };
   } catch (error) {
     if (error instanceof Error) {
@@ -53,7 +55,7 @@ export const logout = async (): Promise<void> => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`,
+        Authorization: `Bearer ${localStorage.getItem('auth_token') || ''}`,
       },
     });
   } catch {
@@ -66,7 +68,7 @@ export const verifyAuth = async (): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/verify', {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`,
+        Authorization: `Bearer ${localStorage.getItem('auth_token') || ''}`,
       },
     });
     return response.ok;
@@ -79,13 +81,13 @@ export const getCurrentUser = async (): Promise<User | null> => {
   try {
     const response = await fetch('/api/auth/user', {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`,
+        Authorization: `Bearer ${localStorage.getItem('auth_token') || ''}`,
       },
     });
-    
+
     if (!response.ok) {
     }
-    
+
     return await response.json();
   } catch {
     return null;
@@ -101,5 +103,3 @@ export const clearTokens = (): void => {
   localStorage.removeItem('refresh_token');
   localStorage.removeItem('current_user');
 };
-
-

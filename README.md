@@ -16,29 +16,29 @@ O vídeo de apresentação acima oferece uma visão detalhada da plataforma, dem
 
 ### ✨ Funcionalidades Principais
 
-* **Ampla Compatibilidade:** Baixe conteúdos de dezenas de plataformas, como Estratégia, Alpaclass, Udemy, Cademi, Hotmart, Kiwify, Astronmembers, Biblioteca Virtual, EBAC, Curseduca, Herospark e muitas outras.
-* **Interface Moderna:** Uma UI limpa, responsiva e amigável.
-* **Gerenciamento de Conteúdo:** Organize seus materiais, gerencie backups em mais de 70 provedores de nuvem (via RCLONE) e acesse tudo de forma estruturada.
-* **Plataforma de Consumo:** Assista a vídeos e leia PDFs diretamente no Katomart, com suporte a anotações com timestamp, e geração de resumos.
-* **Suporte Multilíngue:** Interface traduzida para Português, Inglês e Espanhol (PRs com outros idiomas são bem-vindas).
-* **Configurações Avançadas:** Personalize desde o formato de download até a compressão de vídeo e descriptografia de mídia.
+- **Ampla Compatibilidade:** Baixe conteúdos de dezenas de plataformas, como Estratégia, Alpaclass, Udemy, Cademi, Hotmart, Kiwify, Astronmembers, Biblioteca Virtual, EBAC, Curseduca, Herospark e muitas outras.
+- **Interface Moderna:** Uma UI limpa, responsiva e amigável.
+- **Gerenciamento de Conteúdo:** Organize seus materiais, gerencie backups em mais de 70 provedores de nuvem (via RCLONE) e acesse tudo de forma estruturada.
+- **Plataforma de Consumo:** Assista a vídeos e leia PDFs diretamente no Katomart, com suporte a anotações com timestamp, e geração de resumos.
+- **Suporte Multilíngue:** Interface traduzida para Português, Inglês e Espanhol (PRs com outros idiomas são bem-vindas).
+- **Configurações Avançadas:** Personalize desde o formato de download até a compressão de vídeo e descriptografia de mídia.
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Next.js:** Framework React para construção da interface.
-* **API REST:** Integração total com o backend do Katomart. Também websockets em alguns trechos para comunicação em tempo real.
+- **Next.js:** Framework React para construção da interface.
+- **API REST:** Integração total com o backend do Katomart. Também websockets em alguns trechos para comunicação em tempo real.
 
 ## ⚠️ Avisos Importantes
 
-* **Aparência da Interface:** O foco principal do projeto é a funcionalidade. A interface é funcional, mas o design pode não ser o ideal. Contribuições para melhorias visuais são bem-vindas.
-* **Licença de Consumo:** Para baixar conteúdo de qualquer plataforma, você **deve possuir a licença de consumo** (ou seja, ter comprado o curso).
-* **Comunidade:** Junte-se ao nosso grupo no Telegram para tirar dúvidas e interagir com outros usuários: [https://t.me/GatosDodois](https://t.me/GatosDodois).
-* **Divulgação e Redistribuição:**
-    * Você pode criar vídeos de divulgação do aplicativo, desde que utilize os links oficiais de download (GitHub/Telegram).
-    * É **proibido redistribuir o aplicativo**, a menos que você crie um FORK, faça modificações significativas (implemente funcionalidades) e mantenha seu repositório como código aberto, com uma descrição clara das alterações.
-    * É **expressamente proibido** incluir o aplicativo em "pack de script", independente de como seja feito.
-    * É **proibido remover as atribuições e marcas do meu perfil** no aplicativo, independentemente de qualquer alteração.
-* **Afiliação:** O projeto Katomart não possui afiliação, endosso e nem endossa nenhuma das marcas ou plataformas mencionadas.
+- **Aparência da Interface:** O foco principal do projeto é a funcionalidade. A interface é funcional, mas o design pode não ser o ideal. Contribuições para melhorias visuais são bem-vindas.
+- **Licença de Consumo:** Para baixar conteúdo de qualquer plataforma, você **deve possuir a licença de consumo** (ou seja, ter comprado o curso).
+- **Comunidade:** Junte-se ao nosso grupo no Telegram para tirar dúvidas e interagir com outros usuários: [https://t.me/GatosDodois](https://t.me/GatosDodois).
+- **Divulgação e Redistribuição:**
+  - Você pode criar vídeos de divulgação do aplicativo, desde que utilize os links oficiais de download (GitHub/Telegram).
+  - É **proibido redistribuir o aplicativo**, a menos que você crie um FORK, faça modificações significativas (implemente funcionalidades) e mantenha seu repositório como código aberto, com uma descrição clara das alterações.
+  - É **expressamente proibido** incluir o aplicativo em "pack de script", independente de como seja feito.
+  - É **proibido remover as atribuições e marcas do meu perfil** no aplicativo, independentemente de qualquer alteração.
+- **Afiliação:** O projeto Katomart não possui afiliação, endosso e nem endossa nenhuma das marcas ou plataformas mencionadas.
 
 ## 💙 Como Contribuir
 

@@ -10,7 +10,11 @@ interface SearchBarProps {
   value: string;
 }
 
-export default function SearchBar({ placeholder, onSearch, value }: SearchBarProps) {
+export default function SearchBar({
+  placeholder,
+  onSearch,
+  value,
+}: SearchBarProps) {
   const [localValue, setLocalValue] = useState(value);
 
   const handleSubmit = (e: React.FormEvent) => {

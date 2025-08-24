@@ -2,7 +2,11 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuestionCircle, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faQuestionCircle,
+  faUser,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -15,7 +19,7 @@ const Header = () => {
   const params = useParams();
   const locale = params.locale as string;
   const { user, logout, isLoggedIn } = useAuth();
-  
+
   return (
     <header className="header">
       <div className="header-controls">
@@ -27,7 +31,7 @@ const Header = () => {
           <div className="user-info">
             <FontAwesomeIcon icon={faUser} />
             <span>{user.username}</span>
-            <button 
+            <button
               onClick={logout}
               className="logout-button"
               title={tButtons('logout')}

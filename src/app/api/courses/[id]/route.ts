@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mockDetailedCourses } from '../data';
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function GET(
   request: Request,
@@ -15,7 +15,7 @@ export async function GET(
 
   const { id } = await params;
   const course = mockDetailedCourses[id];
-  
+
   if (!course) {
     return NextResponse.json({ error: 'Course not found' }, { status: 404 });
   }

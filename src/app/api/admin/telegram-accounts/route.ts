@@ -19,7 +19,9 @@ export async function POST(request: Request) {
     const { action, account } = body;
 
     if (action === 'delete') {
-      adminMockData.telegramAccounts = adminMockData.telegramAccounts.filter(acc => acc.id !== account.id);
+      adminMockData.telegramAccounts = adminMockData.telegramAccounts.filter(
+        (acc) => acc.id !== account.id
+      );
       return NextResponse.json({ success: true });
     } else if (action === 'add') {
       const newAccount = { ...account, id: Date.now().toString() };
@@ -29,6 +31,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid request body' },
+      { status: 400 }
+    );
   }
 }

@@ -33,45 +33,51 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return '#4caf50';
-      case 'intermediate': return '#ff9800';
-      case 'advanced': return '#f44336';
-      default: return '#9e9e9e';
+      case 'beginner':
+        return '#4caf50';
+      case 'intermediate':
+        return '#ff9800';
+      case 'advanced':
+        return '#f44336';
+      default:
+        return '#9e9e9e';
     }
   };
 
   return (
-    <div 
-      className="course-card"
-      onClick={() => onClick(course)}
-    >
+    <div className="course-card" onClick={() => onClick(course)}>
       <div className="course-thumbnail">
         {course.thumbnail ? (
-          <Image src={course.thumbnail} alt={course.title} width={300} height={200} />
+          <Image
+            src={course.thumbnail}
+            alt={course.title}
+            width={300}
+            height={200}
+          />
         ) : (
           <div className="course-thumbnail-placeholder">
             <FontAwesomeIcon icon={faBook} size="2x" />
           </div>
         )}
       </div>
-      
+
       <div className="course-content">
         <div className="course-header">
           <h3 className="course-title">{course.title}</h3>
-          <span 
+          <span
             className="course-difficulty"
             style={{ backgroundColor: getDifficultyColor(course.difficulty) }}
           >
             {t('difficulty', { level: course.difficulty })}
           </span>
         </div>
-        
+
         <p className="course-description">{course.description}</p>
         <div className="course-tags">
           <span className="course-category">{course.category}</span>
           <span className="course-platform">{course.platform}</span>
         </div>
-        
+
         <div className="course-stats">
           <div className="course-stat">
             <FontAwesomeIcon icon={faBook} />
@@ -82,10 +88,10 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
             <span>{t('duration', { duration: course.duration })}</span>
           </div>
         </div>
-        
+
         <div className="course-progress">
           <div className="progress-bar">
-            <div 
+            <div
               className="progress-fill"
               style={{ width: `${course.progress}%` }}
             ></div>
@@ -94,7 +100,7 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
             {t('progress', { percent: course.progress })}
           </span>
         </div>
-        
+
         {course.lastAccessed && (
           <div className="course-last-accessed">
             {t('lastAccessed', { date: formatDate(course.lastAccessed) })}

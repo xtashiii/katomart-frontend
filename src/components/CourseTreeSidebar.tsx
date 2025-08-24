@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
   faPlay,
@@ -16,9 +16,9 @@ import {
   faDownload,
   faCheckCircle,
   faCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { DetailedCourse, Lesson, Module } from "@/app/api/courses/types";
+} from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { DetailedCourse, Lesson, Module } from '@/app/api/courses/types';
 
 interface CourseTreeSidebarProps {
   course: DetailedCourse;
@@ -37,9 +37,9 @@ export default function CourseTreeSidebar({
   onBackToCourses,
   onToggleCompletion,
   onDownloadNotes,
-  className = "",
+  className = '',
 }: CourseTreeSidebarProps) {
-  const t = useTranslations("course");
+  const t = useTranslations('course');
   const [expandedModules, setExpandedModules] = useState<Set<string>>(
     new Set(course.modules.map((m) => m.id))
   );
@@ -63,7 +63,7 @@ export default function CourseTreeSidebar({
       <FontAwesomeIcon
         key={i}
         icon={faStar}
-        className={`star ${i < rating ? "filled" : "empty"}`}
+        className={`star ${i < rating ? 'filled' : 'empty'}`}
         onClick={() => {}}
       />
     ));
@@ -98,25 +98,28 @@ export default function CourseTreeSidebar({
     }
   };
 
-
-
   return (
     <div className={`course-tree-sidebar ${className}`}>
       <div className="sidebar-header">
         <button
           onClick={onBackToCourses}
           className="back-button"
-          aria-label={t("backToCourses")}
+          aria-label={t('backToCourses')}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
-          <span>{t("backToCourses")}</span>
+          <span>{t('backToCourses')}</span>
         </button>
       </div>
 
       <div className="course-overview">
         <div className="course-thumbnail">
           {course.thumbnail ? (
-            <Image src={course.thumbnail} alt={course.title} width={200} height={150} />
+            <Image
+              src={course.thumbnail}
+              alt={course.title}
+              width={200}
+              height={150}
+            />
           ) : (
             <div className="course-thumbnail-placeholder">
               <FontAwesomeIcon icon={faBook} size="2x" />
@@ -128,21 +131,21 @@ export default function CourseTreeSidebar({
 
         <div className="course-meta">
           <div className="meta-item">
-            <strong>{t("instructor")}:</strong> {course.instructor}
+            <strong>{t('instructor')}:</strong> {course.instructor}
           </div>
           <div className="meta-item">
-            <strong>{t("enrolled")}:</strong>{" "}
+            <strong>{t('enrolled')}:</strong>{' '}
             {formatDate(course.enrollmentDate)}
           </div>
           <div className="meta-item">
-            <strong>{t("lastAccessed")}:</strong>{" "}
+            <strong>{t('lastAccessed')}:</strong>{' '}
             {formatDate(course.lastAccessed)}
           </div>
         </div>
 
         <div className="progress-section">
           <div className="progress-label">
-            <strong>{t("overallProgress")}</strong>
+            <strong>{t('overallProgress')}</strong>
           </div>
           <div className="progress-bar">
             <div
@@ -155,7 +158,7 @@ export default function CourseTreeSidebar({
       </div>
 
       <div className="modules-section">
-        <h2 className="section-title">{t("modules")}</h2>
+        <h2 className="section-title">{t('modules')}</h2>
 
         <div className="modules-list">
           {course.modules
@@ -181,22 +184,22 @@ export default function CourseTreeSidebar({
 
                     <div className="module-info">
                       <h3 className="module-name">
-                        <span className="module-order">{moduleIndex + 1}.</span>{" "}
+                        <span className="module-order">{moduleIndex + 1}.</span>{' '}
                         {module.name}
                       </h3>
                       {moduleCompleted ? (
                         <div>
                           <span
                             style={{
-                              display: "flex",
-                              fontSize: "2px",
-                              alignItems: "center",
-                              justifyContent: "center",
+                              display: 'flex',
+                              fontSize: '2px',
+                              alignItems: 'center',
+                              justifyContent: 'center',
                             }}
                             className="module-completed"
                           >
                             <FontAwesomeIcon icon={faCheck} />
-                            {t("moduleCompleted")}
+                            {t('moduleCompleted')}
                           </span>
                           <div>
                             {moduleRating > 0 && (
@@ -210,18 +213,18 @@ export default function CourseTreeSidebar({
                         <div className="module-meta">
                           <div
                             style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
                             }}
                             className="module-progress"
                           >
                             <div
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-around",
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
                               }}
                             >
                               <div className="mini-progress-bar">
@@ -232,8 +235,8 @@ export default function CourseTreeSidebar({
                               </div>
                               <span
                                 style={{
-                                  display: "flex",
-                                  justifyContent: "end",
+                                  display: 'flex',
+                                  justifyContent: 'end',
                                 }}
                               >
                                 {module.progress}%
@@ -271,7 +274,7 @@ export default function CourseTreeSidebar({
                           <div
                             key={lesson.id}
                             className={`lesson-item ${
-                              selectedLesson?.id === lesson.id ? "selected" : ""
+                              selectedLesson?.id === lesson.id ? 'selected' : ''
                             }`}
                             onClick={() => onLessonSelect(lesson)}
                           >
@@ -303,7 +306,7 @@ export default function CourseTreeSidebar({
                               <div className="lesson-meta">
                                 {lesson.duration && (
                                   <span className="lesson-duration">
-                                    {t("duration", {
+                                    {t('duration', {
                                       minutes: lesson.duration,
                                     })}
                                   </span>
@@ -319,15 +322,15 @@ export default function CourseTreeSidebar({
                             <div className="lesson-actions">
                               <button
                                 className={`completion-toggle ${
-                                  lesson.completed ? "completed" : "incomplete"
+                                  lesson.completed ? 'completed' : 'incomplete'
                                 }`}
                                 onClick={(e) =>
                                   handleToggleCompletion(lesson, e)
                                 }
                                 title={
                                   lesson.completed
-                                    ? "Mark as incomplete"
-                                    : "Mark as complete"
+                                    ? 'Mark as incomplete'
+                                    : 'Mark as complete'
                                 }
                               >
                                 <FontAwesomeIcon

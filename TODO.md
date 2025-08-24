@@ -6,7 +6,7 @@ Este arquivo lista tarefas pendentes e melhorias para o Frontend que são relati
 
 - [ ] Corrigir e padronizar todas as mensagens de tradução nos arquivos `en.json`, `es.json` e `pt.json`.
 - [ ] Adicionar novos idiomas.
-- [X] Garantir que todas as páginas estejam 100% internacionalizadas (i18n).
+- [x] Garantir que todas as páginas estejam 100% internacionalizadas (i18n).
 - [ ] Refatorar componentes para melhor reutilização e legibilidade.
 - [ ] Otimizar o carregamento de páginas e recursos estáticos, e também o carregamento de idiomas com base na página atual.
 - [ ] Implementar feedback visual para erros de rede.

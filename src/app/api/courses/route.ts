@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { mockCourses } from './data';
 import { CoursesParams, CoursesResponse } from './types';
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function GET(request: Request) {
   if (process.env.NODE_ENV !== 'development') {
@@ -18,21 +18,25 @@ export async function GET(request: Request) {
     search: searchParams.get('search') || '',
     category: searchParams.get('category') || 'all',
     platform: searchParams.get('platform') || 'all',
-    durationRange: searchParams.get('durationRange') || 'all'
+    durationRange: searchParams.get('durationRange') || 'all',
   };
 
   let filteredCourses = mockCourses;
 
   if (params.category && params.category !== 'all') {
-    filteredCourses = filteredCourses.filter(course => course.category === params.category);
+    filteredCourses = filteredCourses.filter(
+      (course) => course.category === params.category
+    );
   }
 
   if (params.platform && params.platform !== 'all') {
-    filteredCourses = filteredCourses.filter(course => course.platform === params.platform);
+    filteredCourses = filteredCourses.filter(
+      (course) => course.platform === params.platform
+    );
   }
 
   if (params.durationRange && params.durationRange !== 'all') {
-    filteredCourses = filteredCourses.filter(course => {
+    filteredCourses = filteredCourses.filter((course) => {
       const duration = course.duration;
       switch (params.durationRange) {
         case '0-20':
@@ -49,11 +53,12 @@ export async function GET(request: Request) {
 
   if (params.search) {
     const searchLower = params.search.toLowerCase();
-    filteredCourses = filteredCourses.filter(course =>
-      course.title.toLowerCase().includes(searchLower) ||
-      course.description.toLowerCase().includes(searchLower) ||
-      course.category.toLowerCase().includes(searchLower) ||
-      course.platform.toLowerCase().includes(searchLower)
+    filteredCourses = filteredCourses.filter(
+      (course) =>
+        course.title.toLowerCase().includes(searchLower) ||
+        course.description.toLowerCase().includes(searchLower) ||
+        course.category.toLowerCase().includes(searchLower) ||
+        course.platform.toLowerCase().includes(searchLower)
     );
   }
 
@@ -68,7 +73,7 @@ export async function GET(request: Request) {
     total,
     page: params.page!,
     totalPages,
-    hasMore: params.page! < totalPages
+    hasMore: params.page! < totalPages,
   };
 
   return NextResponse.json(response);

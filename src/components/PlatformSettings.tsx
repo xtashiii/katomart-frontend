@@ -17,7 +17,9 @@ interface PlatformSettingsProps {
   onLoginSuccess: () => void;
 }
 
-export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsProps) {
+export default function PlatformSettings({
+  onLoginSuccess,
+}: PlatformSettingsProps) {
   const t = useTranslations('platform');
   const [platforms, setPlatforms] = useState<Platform[]>([]);
   const [selectedPlatform, setSelectedPlatform] = useState<string>('');
@@ -25,7 +27,9 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
   const [loginUrl, setLoginUrl] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loginMethod, setLoginMethod] = useState<'credentials' | 'cookies'>('credentials');
+  const [loginMethod, setLoginMethod] = useState<'credentials' | 'cookies'>(
+    'credentials'
+  );
   const [cookiesFile, setCookiesFile] = useState<File | null>(null);
   const [useSelenium, setUseSelenium] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,8 +64,8 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
       setIsLoading(false);
     }, 800);
   };
-  
-  const platform = platforms.find(p => p.id === selectedPlatform);
+
+  const platform = platforms.find((p) => p.id === selectedPlatform);
 
   const handle2FALogin = () => {
     alert('Use Cookies file instead');
@@ -70,7 +74,10 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
   return (
     <div className="space-y-4">
       <div>
-        <label htmlFor="platform" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="platform"
+          className="block text-sm font-medium text-gray-700"
+        >
           Platform
         </label>
         <select
@@ -89,7 +96,10 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
 
       {platform?.needsLoginUrl && (
         <div>
-          <label htmlFor="loginUrl" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="loginUrl"
+            className="block text-sm font-medium text-gray-700"
+          >
             {platform.loginUrlLabel || 'Login URL'}
           </label>
           <input
@@ -104,7 +114,10 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
 
       {platform?.needsBaseUrl && (
         <div>
-          <label htmlFor="baseUrl" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="baseUrl"
+            className="block text-sm font-medium text-gray-700"
+          >
             {platform.baseUrlLabel || 'Base URL (optional)'}
           </label>
           <input
@@ -128,7 +141,9 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
               name="loginMethod"
               value="credentials"
               checked={loginMethod === 'credentials'}
-              onChange={(e) => setLoginMethod(e.target.value as 'credentials' | 'cookies')}
+              onChange={(e) =>
+                setLoginMethod(e.target.value as 'credentials' | 'cookies')
+              }
               className="mr-2"
             />
             <span className="text-sm">{t('usernamePassword')}</span>
@@ -139,21 +154,28 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
               name="loginMethod"
               value="cookies"
               checked={loginMethod === 'cookies'}
-              onChange={(e) => setLoginMethod(e.target.value as 'credentials' | 'cookies')}
+              onChange={(e) =>
+                setLoginMethod(e.target.value as 'credentials' | 'cookies')
+              }
               className="mr-2"
             />
             <span className="text-sm">{t('cookiesFile')}</span>
           </label>
         </div>
         {loginMethod === 'cookies' && (
-          <p className="text-xs text-blue-600 mt-1">{t('cookiesFileDescription')}</p>
+          <p className="text-xs text-blue-600 mt-1">
+            {t('cookiesFileDescription')}
+          </p>
         )}
       </div>
 
       {loginMethod === 'credentials' ? (
         <>
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               Username or Email
             </label>
             <input
@@ -166,7 +188,10 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -180,7 +205,10 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
         </>
       ) : (
         <div>
-          <label htmlFor="cookiesFile" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="cookiesFile"
+            className="block text-sm font-medium text-gray-700"
+          >
             {t('cookiesFileLabel')}
           </label>
           <input
@@ -191,7 +219,9 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
             className="mt-1 block w-full bg-white border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm sm:text-sm rounded-lg transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark"
           />
           {cookiesFile && (
-            <p className="text-xs text-gray-500 mt-1">Selected: {cookiesFile.name}</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Selected: {cookiesFile.name}
+            </p>
           )}
         </div>
       )}
@@ -213,23 +243,22 @@ export default function PlatformSettings({ onLoginSuccess }: PlatformSettingsPro
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <div className="flex space-x-3">
-        <AppButton 
-          onClick={handleLogin} 
+        <AppButton
+          onClick={handleLogin}
           disabled={
             isLoading ||
             !selectedPlatform ||
             (platform?.needsLoginUrl ? !loginUrl : false) ||
             (platform?.needsBaseUrl ? !baseUrl : false) ||
-            (loginMethod === 'credentials' ? (!username || !password) : !cookiesFile)
+            (loginMethod === 'credentials'
+              ? !username || !password
+              : !cookiesFile)
           }
         >
           {isLoading ? 'Logging in...' : 'Login'}
         </AppButton>
-        
-        <AppButton 
-          onClick={handle2FALogin}
-          disabled={false}
-        >
+
+        <AppButton onClick={handle2FALogin} disabled={false}>
           {t('2faSupported')}
         </AppButton>
       </div>

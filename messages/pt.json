@@ -31,7 +31,7 @@
     "ffmpegArgs": "Argumentos de Pós-processamento FFmpeg",
     "ffmpegArgsHelp": "Opções de linha de comando ffmpeg personalizadas para pós-processamento (opcional)",
     "fileManagement": "Gerenciamento de Arquivos",
-    "performanceSettings": "Configurações de Performance", 
+    "performanceSettings": "Configurações de Performance",
     "authSettings": "Configurações de Autenticação",
     "filePatternHelp": "Use %(title)s para o título da lição, %(ext)s para a extensão do arquivo",
     "allowedTypesHelp": "Lista separada por vírgulas dos tipos de arquivo para download",

@@ -357,7 +357,7 @@
     "ffmpegArgs": "FFmpeg Postprocessing Args",
     "ffmpegArgsHelp": "Custom ffmpeg command-line options for postprocessing (optional)",
     "fileManagement": "File Management",
-    "performanceSettings": "Performance Settings", 
+    "performanceSettings": "Performance Settings",
     "authSettings": "Authentication Settings",
     "filePatternHelp": "Use %(title)s for lesson title, %(ext)s for file extension",
     "allowedTypesHelp": "Comma-separated list of file types to download",

@@ -18,9 +18,7 @@ export default function ImportCourseCard({ onClick }: ImportCourseCardProps) {
           <FontAwesomeIcon icon={faPlus} size="3x" />
         </div>
         <h3 className="import-course-title">{t('importUpload')}</h3>
-        <p className="import-course-description">
-          {t('importDescription')}
-        </p>
+        <p className="import-course-description">{t('importDescription')}</p>
       </div>
     </div>
   );

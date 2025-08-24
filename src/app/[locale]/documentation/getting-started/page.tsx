@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
+import {
   faRocket,
   faCog,
   faDownload,
@@ -10,7 +10,7 @@ import {
   faSave,
   faCheckCircle,
   faInfoCircle,
-  faLightbulb
+  faLightbulb,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -19,18 +19,20 @@ import Breadcrumb from '@/components/Breadcrumb';
 
 export default function GettingStartedPage() {
   const t = useTranslations('documentation');
-  const tContent = useTranslations('documentation.sections.gettingStarted.content');
+  const tContent = useTranslations(
+    'documentation.sections.gettingStarted.content'
+  );
   const params = useParams();
   const locale = params.locale as string;
 
   const breadcrumbItems = [
-    { 
-      label: t('breadcrumb.documentation'), 
-      href: `/${locale}/documentation` 
+    {
+      label: t('breadcrumb.documentation'),
+      href: `/${locale}/documentation`,
     },
-    { 
-      label: t('breadcrumb.gettingStarted') 
-    }
+    {
+      label: t('breadcrumb.gettingStarted'),
+    },
   ];
 
   const quickStartSteps = [
@@ -39,35 +41,35 @@ export default function GettingStartedPage() {
       title: 'Admin Panel Setup',
       description: tContent('quickStart.step1'),
       icon: faCog,
-      href: `/${locale}/documentation/admin-panel`
+      href: `/${locale}/documentation/admin-panel`,
     },
     {
       number: '02',
       title: 'Configure Scrapers',
       description: tContent('quickStart.step2'),
       icon: faDownload,
-      href: `/${locale}/documentation/scrappers`
+      href: `/${locale}/documentation/scrappers`,
     },
     {
       number: '03',
       title: 'Use Cognitahz',
       description: tContent('quickStart.step3'),
       icon: faBrain,
-      href: `/${locale}/documentation/cognitahz`
+      href: `/${locale}/documentation/cognitahz`,
     },
     {
-      number: '04',  
+      number: '04',
       title: 'Setup Backups',
       description: tContent('quickStart.step4'),
       icon: faSave,
-      href: `/${locale}/documentation/backups`
-    }
+      href: `/${locale}/documentation/backups`,
+    },
   ];
 
   const systemRequirements = [
     tContent('systemRequirements.requirement1'),
     tContent('systemRequirements.requirement2'),
-    tContent('systemRequirements.requirement3')
+    tContent('systemRequirements.requirement3'),
   ];
 
   return (
@@ -79,7 +81,9 @@ export default function GettingStartedPage() {
             <FontAwesomeIcon icon={faRocket} />
           </div>
           <h1 className="documentation-title">{tContent('overview.title')}</h1>
-          <p className="documentation-subtitle">{tContent('overview.description')}</p>
+          <p className="documentation-subtitle">
+            {tContent('overview.description')}
+          </p>
         </div>
       </div>
 
@@ -91,7 +95,7 @@ export default function GettingStartedPage() {
             </div>
             <h2 className="section-title">{tContent('quickStart.title')}</h2>
           </div>
-          
+
           <div className="quick-start-steps">
             {quickStartSteps.map((step) => (
               <div key={step.number} className="step-card">
@@ -116,13 +120,18 @@ export default function GettingStartedPage() {
             <div className="section-icon">
               <FontAwesomeIcon icon={faInfoCircle} />
             </div>
-            <h2 className="section-title">{tContent('systemRequirements.title')}</h2>
+            <h2 className="section-title">
+              {tContent('systemRequirements.title')}
+            </h2>
           </div>
 
           <div className="requirements-list">
             {systemRequirements.map((requirement, index) => (
               <div key={index} className="requirement-item">
-                <FontAwesomeIcon icon={faCheckCircle} className="requirement-icon" />
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className="requirement-icon"
+                />
                 <span className="requirement-text">{requirement}</span>
               </div>
             ))}
@@ -133,9 +142,13 @@ export default function GettingStartedPage() {
           <div className="next-steps-card">
             <h2 className="next-steps-title">Ready to get started?</h2>
             <p className="next-steps-description">
-              Begin by setting up your admin panel to configure users and system settings.
+              Begin by setting up your admin panel to configure users and system
+              settings.
             </p>
-            <Link href={`/${locale}/documentation/admin-panel`} className="next-steps-button">
+            <Link
+              href={`/${locale}/documentation/admin-panel`}
+              className="next-steps-button"
+            >
               <FontAwesomeIcon icon={faCog} />
               Go to Admin Panel Guide
             </Link>

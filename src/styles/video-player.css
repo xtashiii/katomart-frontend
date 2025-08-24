@@ -5,7 +5,7 @@
 /* Theme Colors */
 :root {
   --vjs-theme-primary: #ff6b6b; /* Light Red/Coral */
-  --vjs-theme-accent: #ff8e8e;  /* Lighter Pinkish Accent */
+  --vjs-theme-accent: #ff8e8e; /* Lighter Pinkish Accent */
   --vjs-theme-text: #ffffff;
   --vjs-theme-background-alpha: rgba(28, 28, 28, 0.7);
   --vjs-theme-background-solid: #1c1c1c;
@@ -137,6 +137,9 @@
   font-weight: 600;
   line-height: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--vjs-theme-text);
   pointer-events: none;
 }
@@ -178,7 +181,9 @@
   margin-bottom: 8px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
 .video-js .vjs-menu-button-popup:hover .vjs-menu,
@@ -231,6 +236,9 @@
   color: var(--vjs-theme-text);
   font-size: 14px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 8px;
   min-width: auto;
 }
@@ -317,7 +325,9 @@
   margin-bottom: 8px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
   pointer-events: none;
 }
 
@@ -356,18 +366,22 @@
 
 /* Animation keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideInUp {
-  from { 
-    transform: translateY(20px); 
-    opacity: 0; 
+  from {
+    transform: translateY(20px);
+    opacity: 0;
   }
-  to { 
-    transform: translateY(0); 
-    opacity: 1; 
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -386,7 +400,7 @@
   background: #f9f9f9;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .add-timestamp-button {

@@ -23,12 +23,17 @@ export async function POST(request: Request) {
       adminMockData.categories.push(newCategory);
       return NextResponse.json({ success: true, category: newCategory });
     } else if (action === 'delete') {
-      adminMockData.categories = adminMockData.categories.filter(cat => cat.id !== category.id);
+      adminMockData.categories = adminMockData.categories.filter(
+        (cat) => cat.id !== category.id
+      );
       return NextResponse.json({ success: true });
     }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid request body' },
+      { status: 400 }
+    );
   }
 }

@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { User, getCurrentUser, isAuthenticated, clearTokens } from '@/lib/auth';
 
 interface AuthContextType {
@@ -65,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     window.addEventListener('auth:logout', handleLogout);
     window.addEventListener('storage', handleStorageChange);
-    
+
     return () => {
       window.removeEventListener('auth:logout', handleLogout);
       window.removeEventListener('storage', handleStorageChange);

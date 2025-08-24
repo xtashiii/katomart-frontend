@@ -14,14 +14,14 @@ export async function POST(request: Request) {
       return NextResponse.json({
         success: true,
         message: 'Course import started',
-        courseId: 'imported-' + Date.now()
+        courseId: 'imported-' + Date.now(),
       });
     } else if (type === 'telegram') {
       // Simulate telegram import processing
       return NextResponse.json({
         success: true,
         message: 'Telegram import started',
-        importId: 'telegram-' + Date.now()
+        importId: 'telegram-' + Date.now(),
       });
     } else {
       return NextResponse.json(

@@ -20,21 +20,49 @@ export default function Footer() {
     >
       <div style={{ marginBottom: '0.5rem', fontWeight: 500 }}>
         {t.rich('developedBy', {
-          author: (chunks) => <span style={{ color: '#fff' }}>{chunks}</span>
+          author: (chunks) => <span style={{ color: '#fff' }}>{chunks}</span>,
         })}
       </div>
-      <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1.2rem' }}>
-        <a href="https://github.com/katomaro/katomart" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '1.3em' }} aria-label="GitHub">
+      <div
+        style={{
+          marginBottom: '0.5rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1.2rem',
+        }}
+      >
+        <a
+          href="https://github.com/katomaro/katomart"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'white', fontSize: '1.3em' }}
+          aria-label="GitHub"
+        >
           <FaGithub />
         </a>
-        <a href="https://t.me/GatosDodois" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '1.3em' }} aria-label="Telegram">
+        <a
+          href="https://t.me/GatosDodois"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'white', fontSize: '1.3em' }}
+          aria-label="Telegram"
+        >
           <FaTelegram />
         </a>
-        <a href="https://www.linkedin.com/in/victor-hugo-carvalho-dos-reis-santos-1a41a936a" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontSize: '1.3em' }} aria-label="LinkedIn (Author)">
+        <a
+          href="https://www.linkedin.com/in/victor-hugo-carvalho-dos-reis-santos-1a41a936a"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'white', fontSize: '1.3em' }}
+          aria-label="LinkedIn (Author)"
+        >
           <FaLinkedin />
         </a>
       </div>
-      <div style={{ fontSize: '0.75em', color: '#cccccc', marginTop: '0.3rem' }}>
+      <div
+        style={{ fontSize: '0.75em', color: '#cccccc', marginTop: '0.3rem' }}
+      >
         {t('disclaimer')}
       </div>
       <div style={{ fontSize: '0.8em', color: '#e0e0e0', marginTop: '0.5rem' }}>
